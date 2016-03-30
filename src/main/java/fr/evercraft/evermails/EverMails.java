@@ -16,18 +16,23 @@
  */
 package fr.evercraft.evermails;
 
+import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 
 import fr.evercraft.everapi.plugin.EPlugin;
-import fr.evercraft.everapi.services.MailService;
-import fr.evercraft.evermails.services.mail.EMailService;
+import fr.evercraft.everapi.services.mail.MailService;
+import fr.evercraft.evermails.service.EMailService;
 
 @Plugin(id = "fr.evercraft.evermails", 
 		name = "EverMails", 
 		version = "1.0", 
 		description = "Sending mail",
 		url = "http://evercraft.fr/",
-		authors = {"rexbut"})
+		authors = {"rexbut"},
+		dependencies = {
+		    @Dependency(id = "fr.evercraft.everapi", version = "1.0"),
+		    @Dependency(id = "fr.evercraft.everchat", optional = true)
+		})
 public class EverMails extends EPlugin {
 	private EMConfig configs;
 	private EMMessage messages;

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with EverMails.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.evercraft.evermails.services.mail;
+package fr.evercraft.evermails.service;
 
 import java.util.Map;
 import java.util.Properties;
@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.google.common.base.Preconditions;
 
-import fr.evercraft.everapi.services.MailService;
+import fr.evercraft.everapi.services.mail.MailService;
 import fr.evercraft.evermails.EverMails;
 
 public class EMailService implements MailService {

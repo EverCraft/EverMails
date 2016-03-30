@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import fr.evercraft.everapi.plugin.file.EConfig;
 import fr.evercraft.everapi.plugin.file.EMessage;
-import fr.evercraft.everapi.services.MailService;
+import fr.evercraft.everapi.services.mail.MailService;
 
 public class EMConfig extends EConfig {
 

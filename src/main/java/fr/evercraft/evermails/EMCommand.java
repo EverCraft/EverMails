@@ -28,9 +28,9 @@ import org.spongepowered.api.text.LiteralText.Builder;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
+import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.ECommand;
 import fr.evercraft.everapi.services.pagination.ESubCommand;
-import fr.evercraft.everapi.sponge.UtilsChat;
 
 public class EMCommand extends ECommand<EverMails> {
 
@@ -291,7 +291,7 @@ public class EMCommand extends ECommand<EverMails> {
 
 	private boolean commandReload(CommandSource player) {
 		this.plugin.reload();
-		player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("RELOAD_COMMAND")));
+		player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("RELOAD_COMMAND")));
 		return true;
 	}
 	
@@ -304,7 +304,7 @@ public class EMCommand extends ECommand<EverMails> {
 		// Des adresses sont enregistré 
 		} else {
 			for (Entry<String, String> mail : this.plugin.getService().getMails().entrySet()) {
-				list.add(UtilsChat.of(this.plugin.getMessages().getMessage("LIST_LINE")
+				list.add(EChat.of(this.plugin.getMessages().getMessage("LIST_LINE")
 						.replaceAll("<player>", mail.getKey())
 						.replaceAll("<address>", mail.getValue())));
 			}
@@ -324,24 +324,24 @@ public class EMCommand extends ECommand<EverMails> {
 			if(this.plugin.getService().setMail(identifier, address)) {
 				// Joueur identique
 				if(player.getName().equalsIgnoreCase(identifier)) {
-					player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_PLAYER")
+					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_PLAYER")
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)));
 				// Joueur différent
 				} else {
-					player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_EQUALS")
+					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_EQUALS")
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)));
 				}
 			// Adresse mail incorrect
 			} else {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_PATTERN")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_PATTERN")
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			}
 		// Adresse mail identique
 		} else {
-			player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_EQUALS")
+			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_EQUALS")
 					.replaceAll("<player>", identifier)
 					.replaceAll("<address>", address)));
 		}
@@ -355,12 +355,12 @@ public class EMCommand extends ECommand<EverMails> {
 			this.plugin.getService().removeMail(identifier);
 			// Joueur identique
 			if(player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_EQUALS")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_EQUALS")
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			// Joueur différent
 			} else {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_PLAYER")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_PLAYER")
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			}
@@ -369,11 +369,11 @@ public class EMCommand extends ECommand<EverMails> {
 		} else {
 			// Joueur identique
 			if(player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_EQUALS")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_EQUALS")
 						.replaceAll("<player>", identifier)));
 			// Joueur différent
 			} else {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_PLAYER")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_PLAYER")
 						.replaceAll("<player>", identifier)));
 			}
 		}
@@ -391,16 +391,16 @@ public class EMCommand extends ECommand<EverMails> {
 						.replaceAll("<player>", player.getName())
 						.replaceAll("<message>", message))) {
 				
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("ALERT_PLAYER")
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("ALERT_PLAYER")
 						.replaceAll("<message>", message)));
 				return true;
 			// Erreur lors de l'envoie
 			} else {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
 			}
 		// Aucune adresse mail
 		} else {
-			player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("ALERT_ERROR")));
+			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("ALERT_ERROR")));
 		}
 		return false;
 	}
@@ -419,13 +419,13 @@ public class EMCommand extends ECommand<EverMails> {
 						.replaceAll("<message>", message))) {
 				// Joueur identique
 				if(player.getName().equalsIgnoreCase(identifier)) {
-					player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_EQUALS")
+					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_EQUALS")
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)
 							.replaceAll("<message>", message)));
 				// Joueur différent
 				} else {
-					player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_PLAYER")
+					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_PLAYER")
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)
 							.replaceAll("<message>", message)));
@@ -433,11 +433,11 @@ public class EMCommand extends ECommand<EverMails> {
 				return true;
 			// Erreur lors de l'envoie
 			} else {
-				player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
+				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
 			}
 		// Aucune adresse mail connu
 		} else {
-			player.sendMessage(UtilsChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_ERROR")
+			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_ERROR")
 					.replaceAll("<player>", identifier)
 					.replaceAll("<message>", message)));
 		}
