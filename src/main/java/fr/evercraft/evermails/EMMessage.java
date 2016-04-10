@@ -30,12 +30,12 @@ public class EMMessage extends EMessage {
 		addDefault("prefix", "[&4Ever&6&lMails&f] ");
 		addDefault("description", "Gestion des mails");
 		
-		addDefault("list.description", "Affiche la liste des adresses mails");
-		addDefault("list.title", "&aLa liste des adresses mails");
+		addDefault("list.description", "Affiche la liste des adresses mails", "See list of emails");
+		addDefault("list.title", "&aLa liste des adresses mails", "&aThe list of emails");
 		addDefault("list.line", "    &6&l➤  <player> : &7<address>");
-		addDefault("list.empty", "&7Aucune adresse mail");
+		addDefault("list.empty", "&7Aucune adresse mail", "No email");
 		
-		addDefault("set.description", "Défini une adresse mail");
+		addDefault("set.description", "Défini une adresse mail", "Set an e-mail");
 		addDefault("set.player", "&7L'adresse mail de &6<player> &7a été défini en tant que &6<address>&7.");
 		addDefault("set.equals", "&7Vous avez défini votre adresse mail en &6<address>&7.");
 		addDefault("set.errorPattern", "&cL'adresse mail n'a pas un format valide.");
