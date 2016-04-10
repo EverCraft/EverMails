@@ -47,13 +47,13 @@ public class EMMessage extends EMessage {
 		addDefault("delete.errorPlayer", "&6<identifier> &cn'a pas d'adresse mail.");
 		addDefault("delete.errorEquals", "&cVous n'avez pas d'adresse mail.");
 		
-		addDefault("alert.description", "Envoie message à tous les adresses mails");
+		addDefault("alert.description", "Envoie un message à tous les adresses mails");
 		addDefault("alert.object", "Avertissement de <player>");
 		addDefault("alert.message", "<message>");
 		addDefault("alert.player", "&7Votre message d'avertissement a bien était envoyé.");
 		addDefault("alert.error", "&cIl n'y a aucune adresse mail d'enregistré");
 		
-		addDefault("send.description", "Envoie mail à un joueur");
+		addDefault("send.description", "Envoie un mail à un joueur");
 		addDefault("send.object", "Message de <player>");
 		addDefault("send.message", "<message>");
 		addDefault("send.player", "&7Votre message a bien était envoyé à &6<player>&7.");
