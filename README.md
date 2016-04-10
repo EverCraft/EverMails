@@ -4,7 +4,7 @@ EverMails
 A minecraft plugin for Sponge platforms.
 
 ## Links ##
-* [Source](https://github.com/EverCraft/EverMails)
+* [Download](https://github.com/EverCraft/EverMails/releases)
 * [Wiki](http://wiki.evercraft.fr)
 * [Issues](https://github.com/EverCraft/EverMails/issues)
 * [Website](http://evercraft.fr)
