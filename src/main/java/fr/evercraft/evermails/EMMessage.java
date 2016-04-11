@@ -41,24 +41,24 @@ public class EMMessage extends EMessage {
 		addDefault("set.errorPattern", "&cL'adresse mail n'a pas un format valide.");
 		addDefault("set.errorEquals", "&cLes adresses mails sont identiques.");
 		
-		addDefault("delete.description", "Supprime une adresse mail");
+		addDefault("delete.description", "Supprime une adresse mail", "Delete an email");
 		addDefault("delete.player", "&7L'adresse mail de &6<player> &7 a été supprimé");
 		addDefault("delete.equals", "&7Vous avez supprimé votre adresse mail.");
 		addDefault("delete.errorPlayer", "&6<identifier> &cn'a pas d'adresse mail.");
 		addDefault("delete.errorEquals", "&cVous n'avez pas d'adresse mail.");
 		
-		addDefault("alert.description", "Envoie un message à tous les adresses mails");
+		addDefault("alert.description", "Envoie un message à tous les adresses mails", "Sends a message to all emails");
 		addDefault("alert.object", "Avertissement de <player>");
 		addDefault("alert.message", "<message>");
 		addDefault("alert.player", "&7Votre message d'avertissement a bien était envoyé.");
 		addDefault("alert.error", "&cIl n'y a aucune adresse mail d'enregistré");
 		
-		addDefault("send.description", "Envoie un mail à un joueur");
-		addDefault("send.object", "Message de <player>");
+		addDefault("send.description", "Envoie un mail à un joueur", "Send an email to a player");
+		addDefault("send.object", "Message de <player>", "Message of <player>");
 		addDefault("send.message", "<message>");
-		addDefault("send.player", "&7Votre message a bien était envoyé à &6<player>&7.");
-		addDefault("send.equals", "&7Vous vous êtes bien envoyé un message.");
-		addDefault("send.error", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
+		addDefault("send.player", "&7Votre message a bien était envoyé à &6<player>&7.", "&7Your message has well was sent to &6<player>&7.");
+		addDefault("send.equals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message.");
+		addDefault("send.error", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
 	}
 
 	@Override
