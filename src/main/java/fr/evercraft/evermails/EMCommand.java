@@ -28,6 +28,7 @@ import org.spongepowered.api.text.LiteralText.Builder;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
+import fr.evercraft.everapi.EAMessage.EAMessages;
 import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.ECommand;
 import fr.evercraft.everapi.services.pagination.ESubCommand;
@@ -203,26 +204,26 @@ public class EMCommand extends ECommand<EverMails> {
 			if(source.hasPermission(this.plugin.getPermissions().get("HELP"))) {
 				resultat = commandHelp(source);
 			} else {
-				source.sendMessage(this.plugin.getPermissions().noPermission());
+				source.sendMessage(EAMessages.NO_PERMISSION.getText());
 			}
 		} else {
 			if(args.get(0).equalsIgnoreCase("reload")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("RELOAD"))) {
 					resultat = commandReload(source);
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("list")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("LIST"))) {
 					resultat = commandList(source);
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("delete")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("DELETE"))) {
 					resultat = commandDel(source, args.get(1));
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("set")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("SET"))) {
@@ -232,7 +233,7 @@ public class EMCommand extends ECommand<EverMails> {
 						source.sendMessage(this.helpSet(source));
 					}
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("alert")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("ALERT"))) {
@@ -243,7 +244,7 @@ public class EMCommand extends ECommand<EverMails> {
 						source.sendMessage(this.helpAlert(source));
 					}
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("send")) {
 				if(source.hasPermission(this.plugin.getPermissions().get("SEND"))) {
@@ -256,7 +257,7 @@ public class EMCommand extends ECommand<EverMails> {
 						source.sendMessage(this.helpSend(source));
 					}
 				} else {
-					source.sendMessage(this.plugin.getPermissions().noPermission());
+					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else {
 				source.sendMessage(help(source));
