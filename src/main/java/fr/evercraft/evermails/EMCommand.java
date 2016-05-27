@@ -32,6 +32,7 @@ import fr.evercraft.everapi.EAMessage.EAMessages;
 import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.ECommand;
 import fr.evercraft.everapi.services.pagination.ESubCommand;
+import fr.evercraft.evermails.EMMessage.EMMessages;
 
 public class EMCommand extends ECommand<EverMails> {
 
@@ -41,23 +42,23 @@ public class EMCommand extends ECommand<EverMails> {
 	
 	@Override
 	public boolean testPermission(final CommandSource source) {
-		return source.hasPermission(this.plugin.getPermissions().get("EVERMAILS"));
+		return source.hasPermission(EMPermissions.EVERMAILS.get());
 	}
 	
 	@Override
 	public Text description(final CommandSource source) {
-		return this.plugin.getMessages().getText("DESCRIPTION");
+		return EMMessages.DESCRIPTION.getText();
 	}
 
 	@Override
 	public Text help(final CommandSource source) {
-		boolean perm_help = source.hasPermission(this.plugin.getPermissions().get("HELP"));
-		boolean perm_reload = source.hasPermission(this.plugin.getPermissions().get("RELOAD"));
-		boolean perm_list = source.hasPermission(this.plugin.getPermissions().get("LIST"));
-		boolean perm_set = source.hasPermission(this.plugin.getPermissions().get("SET"));
-		boolean perm_delete = source.hasPermission(this.plugin.getPermissions().get("DELETE"));
-		boolean perm_alert = source.hasPermission(this.plugin.getPermissions().get("ALERT"));
-		boolean perm_send = source.hasPermission(this.plugin.getPermissions().get("SEND"));
+		boolean perm_help = source.hasPermission(EMPermissions.HELP.get());
+		boolean perm_reload = source.hasPermission(EMPermissions.RELOAD.get());
+		boolean perm_list = source.hasPermission(EMPermissions.LIST.get());
+		boolean perm_set = source.hasPermission(EMPermissions.SET.get());
+		boolean perm_delete = source.hasPermission(EMPermissions.DELETE.get());
+		boolean perm_alert = source.hasPermission(EMPermissions.ALERT.get());
+		boolean perm_send = source.hasPermission(EMPermissions.SEND.get());
 		
 		Text help;
 		if(perm_help || perm_reload || perm_list || perm_set || perm_delete || perm_alert || perm_send){
@@ -126,30 +127,30 @@ public class EMCommand extends ECommand<EverMails> {
 	}
 	
 	public Text helpSet(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " set <" + this.plugin.getEverAPI().getMessages().getArg("player") + "> "
-													  + "<" + this.plugin.getEverAPI().getMessages().getArg("mail") + ">")
+		return Text.builder("/" + this.getName() + " set <" + EAMessages.ARGS_PLAYER.get() + "> "
+													  + "<" + EAMessages.ARGS_MAIL.get() + ">")
 					.onClick(TextActions.suggestCommand("/" + this.getName() + " list"))
 					.color(TextColors.RED)
 					.build();
 	}
 	
 	public Text helpDelete(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " delete <" + this.plugin.getEverAPI().getMessages().getArg("player") + ">")
+		return Text.builder("/" + this.getName() + " delete <" + EAMessages.ARGS_PLAYER.get() + ">")
 					.onClick(TextActions.suggestCommand("/" + this.getName() + " list"))
 					.color(TextColors.RED)
 					.build();
 	}
 	
 	public Text helpAlert(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " alert <" + this.plugin.getEverAPI().getMessages().getArg("message") + ">")
+		return Text.builder("/" + this.getName() + " alert <" + EAMessages.ARGS_MESSAGE.get() + ">")
 					.onClick(TextActions.suggestCommand("/" + this.getName() + " list"))
 					.color(TextColors.RED)
 					.build();
 	}
 	
 	public Text helpSend(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " send <" + this.plugin.getEverAPI().getMessages().getArg("player") + "> "
-													   + "<" + this.plugin.getEverAPI().getMessages().getArg("message") + ">")
+		return Text.builder("/" + this.getName() + " send <" + EAMessages.ARGS_PLAYER.get() + "> "
+													   + "<" + EAMessages.ARGS_MESSAGE.get() + ">")
 					.onClick(TextActions.suggestCommand("/" + this.getName() + " list"))
 					.color(TextColors.RED)
 					.build();
@@ -159,38 +160,38 @@ public class EMCommand extends ECommand<EverMails> {
 	public List<String> tabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		List<String> suggests = new ArrayList<String>();
 		if(args.size() == 1) {
-			if(source.hasPermission(this.plugin.getPermissions().get("HELP"))) {
+			if(source.hasPermission(EMPermissions.HELP.get())) {
 				suggests.add("help");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("RELOAD"))) {
+			if(source.hasPermission(EMPermissions.RELOAD.get())) {
 				suggests.add("reload");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("LIST"))) {
+			if(source.hasPermission(EMPermissions.LIST.get())) {
 				suggests.add("list");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("SET"))) {
+			if(source.hasPermission(EMPermissions.SET.get())) {
 				suggests.add("set");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("DELETE"))) {
+			if(source.hasPermission(EMPermissions.DELETE.get())) {
 				suggests.add("delete");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("ALERT"))) {
+			if(source.hasPermission(EMPermissions.ALERT.get())) {
 				suggests.add("alert");
 			}
-			if(source.hasPermission(this.plugin.getPermissions().get("SEND"))) {
+			if(source.hasPermission(EMPermissions.SEND.get())) {
 				suggests.add("send");
 			}
 		} else if(args.size() == 2) {
 			if(args.get(0).equalsIgnoreCase("delete")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("DELETE"))) {
+				if(source.hasPermission(EMPermissions.DELETE.get())) {
 					suggests.addAll(this.plugin.getService().getMails().keySet());
 				}
 			} else if(args.get(0).equalsIgnoreCase("set")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("SET"))) {
+				if(source.hasPermission(EMPermissions.SET.get())) {
 					suggests.addAll(this.plugin.getService().getMails().keySet());
 				}
 			} else if(args.get(0).equalsIgnoreCase("send")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("SEND"))) {
+				if(source.hasPermission(EMPermissions.SEND.get())) {
 					suggests.addAll(this.plugin.getService().getMails().keySet());
 				}
 			}
@@ -201,32 +202,32 @@ public class EMCommand extends ECommand<EverMails> {
 	public boolean execute(final CommandSource source, final List<String> args) throws CommandException {
 		boolean resultat = false;
 		if(args.size() == 0 || args.get(0).equalsIgnoreCase("help")) {
-			if(source.hasPermission(this.plugin.getPermissions().get("HELP"))) {
+			if(source.hasPermission(EMPermissions.HELP.get())) {
 				resultat = commandHelp(source);
 			} else {
 				source.sendMessage(EAMessages.NO_PERMISSION.getText());
 			}
 		} else {
 			if(args.get(0).equalsIgnoreCase("reload")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("RELOAD"))) {
+				if(source.hasPermission(EMPermissions.RELOAD.get())) {
 					resultat = commandReload(source);
 				} else {
 					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("list")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("LIST"))) {
+				if(source.hasPermission(EMPermissions.LIST.get())) {
 					resultat = commandList(source);
 				} else {
 					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("delete")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("DELETE"))) {
+				if(source.hasPermission(EMPermissions.DELETE.get())) {
 					resultat = commandDel(source, args.get(1));
 				} else {
 					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("set")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("SET"))) {
+				if(source.hasPermission(EMPermissions.SET.get())) {
 					if(args.size() == 3) {
 						resultat = commandSet(source, args.get(1), args.get(2));
 					} else {
@@ -236,7 +237,7 @@ public class EMCommand extends ECommand<EverMails> {
 					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("alert")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("ALERT"))) {
+				if(source.hasPermission(EMPermissions.ALERT.get())) {
 					if(args.size() >= 2) {
 						args.remove(0);
 						resultat = commandAlert(source, getMessage(args));
@@ -247,7 +248,7 @@ public class EMCommand extends ECommand<EverMails> {
 					source.sendMessage(EAMessages.NO_PERMISSION.getText());
 				}
 			} else if(args.get(0).equalsIgnoreCase("send")) {
-				if(source.hasPermission(this.plugin.getPermissions().get("SEND"))) {
+				if(source.hasPermission(EMPermissions.SEND.get())) {
 					if(args.size() >= 3) {
 						String identifier = args.get(1);
 						args.remove(1);
@@ -268,23 +269,23 @@ public class EMCommand extends ECommand<EverMails> {
 	
 	private boolean commandHelp(CommandSource source) {
 		LinkedHashMap<String, ESubCommand> commands = new LinkedHashMap<String, ESubCommand>();
-		if(source.hasPermission(this.plugin.getPermissions().get("RELOAD"))) {
-			commands.put(this.getName() + " reload", new ESubCommand(this.helpReload(source), this.plugin.getEverAPI().getMessages().getText("RELOAD_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.RELOAD.get())) {
+			commands.put(this.getName() + " reload", new ESubCommand(this.helpReload(source), EAMessages.RELOAD_DESCRIPTION.getText()));
 		}
-		if(source.hasPermission(this.plugin.getPermissions().get("LIST"))) {
-			commands.put(this.getName() + " list", new ESubCommand(this.helpList(source), this.plugin.getMessages().getText("LIST_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.LIST.get())) {
+			commands.put(this.getName() + " list", new ESubCommand(this.helpList(source), EMMessages.LIST_DESCRIPTION.getText()));
 		}
-		if(source.hasPermission(this.plugin.getPermissions().get("SET"))) {
-			commands.put(this.getName() + " set", new ESubCommand(this.helpSet(source), this.plugin.getMessages().getText("SET_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.SET.get())) {
+			commands.put(this.getName() + " set", new ESubCommand(this.helpSet(source), EMMessages.SET_DESCRIPTION.getText()));
 		}
-		if(source.hasPermission(this.plugin.getPermissions().get("DELETE"))) {
-			commands.put(this.getName() + " delete", new ESubCommand(this.helpDelete(source), this.plugin.getMessages().getText("DELETE_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.DELETE.get())) {
+			commands.put(this.getName() + " delete", new ESubCommand(this.helpDelete(source), EMMessages.DELETE_DESCRIPTION.getText()));
 		}
-		if(source.hasPermission(this.plugin.getPermissions().get("ALERT"))) {
-			commands.put(this.getName() + " alert", new ESubCommand(this.helpAlert(source), this.plugin.getMessages().getText("ALERT_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.ALERT.get())) {
+			commands.put(this.getName() + " alert", new ESubCommand(this.helpAlert(source), EMMessages.ALERT_DESCRIPTION.getText()));
 		}
-		if(source.hasPermission(this.plugin.getPermissions().get("SEND"))) {
-			commands.put(this.getName() + " send", new ESubCommand(this.helpSend(source), this.plugin.getMessages().getText("SEND_DESCRIPTION")));
+		if(source.hasPermission(EMPermissions.SEND.get())) {
+			commands.put(this.getName() + " send", new ESubCommand(this.helpSend(source), EMMessages.SEND_DESCRIPTION.getText()));
 		}
 		this.plugin.getEverAPI().getManagerService().getEPagination().helpSubCommand(commands, source, this.plugin);
 		return true;
@@ -292,7 +293,7 @@ public class EMCommand extends ECommand<EverMails> {
 
 	private boolean commandReload(CommandSource player) {
 		this.plugin.reload();
-		player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("RELOAD_COMMAND")));
+		player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EAMessages.RELOAD_COMMAND.get()));
 		return true;
 	}
 	
@@ -301,18 +302,18 @@ public class EMCommand extends ECommand<EverMails> {
 		
 		// Aucune adresse mail
 		if(this.plugin.getService().getMails().isEmpty()) {
-			list.add(this.plugin.getMessages().getText("LIST_EMPTY"));
+			list.add(EMMessages.LIST_EMPTY.getText());
 		// Des adresses sont enregistré 
 		} else {
 			for (Entry<String, String> mail : this.plugin.getService().getMails().entrySet()) {
-				list.add(EChat.of(this.plugin.getMessages().getMessage("LIST_LINE")
+				list.add(EChat.of(EMMessages.LIST_LINE.get()
 						.replaceAll("<player>", mail.getKey())
 						.replaceAll("<address>", mail.getValue())));
 			}
 		}
 		
 		this.plugin.getEverAPI().getManagerService().getEPagination().sendTo(
-				this.plugin.getMessages().getText("LIST_TITLE"), 
+				EMMessages.LIST_TITLE.getText(), 
 				list, player);
 		return true;
 	}
@@ -325,24 +326,24 @@ public class EMCommand extends ECommand<EverMails> {
 			if(this.plugin.getService().setMail(identifier, address)) {
 				// Joueur identique
 				if(player.getName().equalsIgnoreCase(identifier)) {
-					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_PLAYER")
+					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SET_PLAYER.get()
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)));
 				// Joueur différent
 				} else {
-					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_EQUALS")
+					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SET_EQUALS.get()
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)));
 				}
 			// Adresse mail incorrect
 			} else {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_PATTERN")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SET_ERROR_PATTERN.get()
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			}
 		// Adresse mail identique
 		} else {
-			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SET_ERROR_EQUALS")
+			player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SET_ERROR_EQUALS.get()
 					.replaceAll("<player>", identifier)
 					.replaceAll("<address>", address)));
 		}
@@ -356,12 +357,12 @@ public class EMCommand extends ECommand<EverMails> {
 			this.plugin.getService().removeMail(identifier);
 			// Joueur identique
 			if(player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_EQUALS")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_EQUALS.get()
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			// Joueur différent
 			} else {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_PLAYER")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_PLAYER.get()
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
 			}
@@ -370,11 +371,11 @@ public class EMCommand extends ECommand<EverMails> {
 		} else {
 			// Joueur identique
 			if(player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_EQUALS")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_ERROR_EQUALS.get()
 						.replaceAll("<player>", identifier)));
 			// Joueur différent
 			} else {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("DELETE_ERROR_PLAYER")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_ERROR_PLAYER.get()
 						.replaceAll("<player>", identifier)));
 			}
 		}
@@ -386,22 +387,22 @@ public class EMCommand extends ECommand<EverMails> {
 		if(!this.plugin.getService().getMails().isEmpty()) {
 			// Mail envoyé
 			if(this.plugin.getService().alert(
-					this.plugin.getMessages().getMessage("ALERT_OBJECT")
+					EMMessages.ALERT_OBJECT.get()
 						.replaceAll("<player>", player.getName()), 
-					this.plugin.getMessages().getMessage("ALERT_MESSAGE")
+					EMMessages.ALERT_MESSAGE.get()
 						.replaceAll("<player>", player.getName())
 						.replaceAll("<message>", message))) {
 				
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("ALERT_PLAYER")
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.ALERT_PLAYER.get()
 						.replaceAll("<message>", message)));
 				return true;
 			// Erreur lors de l'envoie
 			} else {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EAMessages.COMMAND_ERROR.get()));
 			}
 		// Aucune adresse mail
 		} else {
-			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("ALERT_ERROR")));
+			player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.ALERT_ERROR.get()));
 		}
 		return false;
 	}
@@ -413,20 +414,20 @@ public class EMCommand extends ECommand<EverMails> {
 			// Mail envoyé
 			if(this.plugin.getService().send(
 					address,
-					this.plugin.getMessages().getMessage("SEND_OBJECT")
+					EMMessages.SEND_OBJECT.get()
 					.replaceAll("<player>", player.getName()), 
-					this.plugin.getMessages().getMessage("SEND_MESSAGE")
+					EMMessages.SEND_MESSAGE.get()
 						.replaceAll("<player>", player.getName())
 						.replaceAll("<message>", message))) {
 				// Joueur identique
 				if(player.getName().equalsIgnoreCase(identifier)) {
-					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_EQUALS")
+					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_EQUALS.get()
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)
 							.replaceAll("<message>", message)));
 				// Joueur différent
 				} else {
-					player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_PLAYER")
+					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_PLAYER.get()
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)
 							.replaceAll("<message>", message)));
@@ -434,11 +435,11 @@ public class EMCommand extends ECommand<EverMails> {
 				return true;
 			// Erreur lors de l'envoie
 			} else {
-				player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getEverAPI().getMessages().getMessage("COMMAND_ERROR")));
+				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EAMessages.COMMAND_ERROR.get()));
 			}
 		// Aucune adresse mail connu
 		} else {
-			player.sendMessage(EChat.of(this.plugin.getMessages().getMessage("PREFIX") + this.plugin.getMessages().getMessage("SEND_ERROR")
+			player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_ERROR.get()
 					.replaceAll("<player>", identifier)
 					.replaceAll("<message>", message)));
 		}

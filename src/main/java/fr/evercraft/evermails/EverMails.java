@@ -36,13 +36,11 @@ import fr.evercraft.evermails.service.EMailService;
 public class EverMails extends EPlugin {
 	private EMConfig configs;
 	private EMMessage messages;
-	private EMPermission permissions;
 	
 	private EMailService service;
 	
 	@Override
 	protected void onPreEnable() {
-		this.permissions = new EMPermission(this);
 		this.configs = new EMConfig(this);
 		
 		this.messages = new EMMessage(this);
@@ -68,9 +66,6 @@ public class EverMails extends EPlugin {
 	/*
 	 * Accesseurs
 	 */
-	public EMPermission getPermissions() {
-		return this.permissions;
-	}
 	
 	public EMMessage getMessages(){
 		return this.messages;

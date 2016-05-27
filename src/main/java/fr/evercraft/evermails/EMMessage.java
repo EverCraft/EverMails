@@ -16,85 +16,117 @@
  */
 package fr.evercraft.evermails;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColor;
+
+import com.google.common.base.Preconditions;
+
+import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.file.EMessage;
+import fr.evercraft.everapi.plugin.file.EnumMessage;
 
 public class EMMessage extends EMessage {
 
 	public EMMessage(final EverMails plugin) {
-		super(plugin);
+		super(plugin, EMMessages.values());
 	}
+	
+	public enum EMMessages implements EnumMessage {
+		PREFIX("prefix", "[&4Ever&6&lMails&f] "),
+		DESCRIPTION("description", "Gestion des mails"),
+		
+		LIST_DESCRIPTION("list.description", "Affiche la liste des adresses mails", "See list of emails"),
+		LIST_TITLE("list.title", "&aLa liste des adresses mails", "&aThe list of emails"),
+		LIST_LINE("list.line", "    &6&l➤  <player> : &7<address>"),
+		LIST_EMPTY("list.empty", "&7Aucune adresse mail", "No email"),
+		
+		SET_DESCRIPTION("set.description", "Défini une adresse mail", "Set an e-mail"),
+		SET_PLAYER("set.player", "&7L'adresse mail de &6<player> &7a été défini en tant que &6<address>&7."),
+		SET_EQUALS("set.equals", "&7Vous avez défini votre adresse mail en &6<address>&7."),
+		SET_ERROR_PATTERN("set.errorPattern", "&cL'adresse mail n'a pas un format valide."),
+		SET_ERROR_EQUALS("set.errorEquals", "&cLes adresses mails sont identiques."),
+		
+		DELETE_DESCRIPTION("delete.description", "Supprime une adresse mail", "Delete an email"),
+		DELETE_PLAYER("delete.player", "&7L'adresse mail de &6<player> &7 a été supprimé"),
+		DELETE_EQUALS("delete.equals", "&7Vous avez supprimé votre adresse mail."),
+		DELETE_ERROR_PLAYER("delete.errorPlayer", "&6<identifier> &cn'a pas d'adresse mail."),
+		DELETE_ERROR_EQUALS("delete.errorEquals", "&cVous n'avez pas d'adresse mail."),
+		
+		ALERT_DESCRIPTION("alert.description", "Envoie un message à tous les adresses mails", "Sends a message to all emails"),
+		ALERT_OBJECT("alert.object", "Avertissement de <player>"),
+		ALERT_MESSAGE("alert.message", "<message>"),
+		ALERT_PLAYER("alert.player", "&7Votre message d'avertissement a bien était envoyé."),
+		ALERT_ERROR("alert.error", "&cIl n'y a aucune adresse mail d'enregistré"),
+		
+		SEND_DESCRIPTION("send.description", "Envoie un mail à un joueur", "Send an email to a player"),
+		SEND_OBJECT("send.object", "Message de <player>", "Message of <player>"),
+		SEND_MESSAGE("send.message", "<message>"),
+		SEND_PLAYER("send.player", "&7Votre message a bien était envoyé à &6<player>&7.", "&7Your message has well was sent to &6<player>&7."),
+		SEND_EQUALS("send.equals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
+		SEND_ERROR("send.error", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
+		
+		private final String path;
+	    private final Object french;
+	    private final Object english;
+	    private Object message;
+	    
+	    private EMMessages(final String path, final Object french) {   	
+	    	this(path, french, french);
+	    }
+	    
+	    private EMMessages(final String path, final Object french, final Object english) {
+	    	Preconditions.checkNotNull(french, "Le message '" + this.name() + "' n'est pas définit");
+	    	
+	    	this.path = path;	    	
+	    	this.french = french;
+	    	this.english = english;
+	    	this.message = french;
+	    }
 
-	@Override
-	public void loadDefault() {
-		// Prefix
-		addDefault("prefix", "[&4Ever&6&lMails&f] ");
-		addDefault("description", "Gestion des mails");
-		
-		addDefault("list.description", "Affiche la liste des adresses mails", "See list of emails");
-		addDefault("list.title", "&aLa liste des adresses mails", "&aThe list of emails");
-		addDefault("list.line", "    &6&l➤  <player> : &7<address>");
-		addDefault("list.empty", "&7Aucune adresse mail", "No email");
-		
-		addDefault("set.description", "Défini une adresse mail", "Set an e-mail");
-		addDefault("set.player", "&7L'adresse mail de &6<player> &7a été défini en tant que &6<address>&7.");
-		addDefault("set.equals", "&7Vous avez défini votre adresse mail en &6<address>&7.");
-		addDefault("set.errorPattern", "&cL'adresse mail n'a pas un format valide.");
-		addDefault("set.errorEquals", "&cLes adresses mails sont identiques.");
-		
-		addDefault("delete.description", "Supprime une adresse mail", "Delete an email");
-		addDefault("delete.player", "&7L'adresse mail de &6<player> &7 a été supprimé");
-		addDefault("delete.equals", "&7Vous avez supprimé votre adresse mail.");
-		addDefault("delete.errorPlayer", "&6<identifier> &cn'a pas d'adresse mail.");
-		addDefault("delete.errorEquals", "&cVous n'avez pas d'adresse mail.");
-		
-		addDefault("alert.description", "Envoie un message à tous les adresses mails", "Sends a message to all emails");
-		addDefault("alert.object", "Avertissement de <player>");
-		addDefault("alert.message", "<message>");
-		addDefault("alert.player", "&7Votre message d'avertissement a bien était envoyé.");
-		addDefault("alert.error", "&cIl n'y a aucune adresse mail d'enregistré");
-		
-		addDefault("send.description", "Envoie un mail à un joueur", "Send an email to a player");
-		addDefault("send.object", "Message de <player>", "Message of <player>");
-		addDefault("send.message", "<message>");
-		addDefault("send.player", "&7Votre message a bien était envoyé à &6<player>&7.", "&7Your message has well was sent to &6<player>&7.");
-		addDefault("send.equals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message.");
-		addDefault("send.error", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
-	}
+	    public String getName() {
+			return this.name();
+		}
+	    
+		public String getPath() {
+			return this.path;
+		}
 
-	@Override
-	public void loadConfig() {
-		// Prefix
-		addMessage("PREFIX", "prefix");
-		addMessage("DESCRIPTION", "description");
+		public Object getFrench() {
+			return this.french;
+		}
+
+		public Object getEnglish() {
+			return this.english;
+		}
 		
-		addMessage("LIST_DESCRIPTION", "list.description");
-		addMessage("LIST_TITLE", "list.title");
-		addMessage("LIST_LINE", "list.line");
-		addMessage("LIST_EMPTY", "list.empty");
+		public String get() {
+			if(this.message instanceof String) {
+				return (String) this.message;
+			}
+			return this.message.toString();
+		}
+			
+		@SuppressWarnings("unchecked")
+		public List<String> getList() {
+			if(this.message instanceof List) {
+				return (List<String>) this.message;
+			}
+			return Arrays.asList(this.message.toString());
+		}
 		
-		addMessage("SET_DESCRIPTION", "set.description");
-		addMessage("SET_PLAYER", "set.player");
-		addMessage("SET_EQUALS", "set.equals");
-		addMessage("SET_ERROR_PATTERN", "set.errorPattern");
-		addMessage("SET_ERROR_EQUALS", "set.errorEquals");
+		public void set(Object message) {
+			this.message = message;
+		}
+
+		public Text getText() {
+			return EChat.of(this.get());
+		}
 		
-		addMessage("DELETE_DESCRIPTION", "delete.description");
-		addMessage("DELETE_PLAYER", "delete.player");
-		addMessage("DELETE_EQUALS", "delete.equals");
-		addMessage("DELETE_ERROR_PLAYER", "delete.errorPlayer");
-		addMessage("DELETE_ERROR_EQUALS", "delete.errorEquals");
-		
-		addMessage("ALERT_DESCRIPTION", "alert.description");
-		addMessage("ALERT_OBJECT", "alert.object");
-		addMessage("ALERT_MESSAGE", "alert.message");
-		addMessage("ALERT_PLAYER", "alert.player");
-		addMessage("ALERT_ERROR", "alert.error");
-		
-		addMessage("SEND_DESCRIPTION", "send.description");
-		addMessage("SEND_OBJECT", "send.object");
-		addMessage("SEND_MESSAGE", "send.message");
-		addMessage("SEND_PLAYER", "send.player");
-		addMessage("SEND_EQUALS", "send.equals");
-		addMessage("SEND_ERROR", "send.error");
+		public TextColor getColor() {
+			return EChat.getTextColor(this.get());
+		}
 	}
 }
