@@ -25,12 +25,12 @@ import fr.evercraft.evermails.service.EMailService;
 
 @Plugin(id = "fr.evercraft.evermails", 
 		name = "EverMails", 
-		version = "1.1", 
+		version = "1.2", 
 		description = "Sending mail",
 		url = "http://evercraft.fr/",
 		authors = {"rexbut"},
 		dependencies = {
-		    @Dependency(id = "fr.evercraft.everapi", version = "1.1"),
+		    @Dependency(id = "fr.evercraft.everapi", version = "1.2"),
 		    @Dependency(id = "fr.evercraft.everchat", optional = true)
 		})
 public class EverMails extends EPlugin {
