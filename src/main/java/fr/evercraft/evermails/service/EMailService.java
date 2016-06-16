@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.google.common.base.Preconditions;
 
-import fr.evercraft.everapi.services.mail.MailService;
+import fr.evercraft.everapi.services.MailService;
 import fr.evercraft.evermails.EverMails;
 
 public class EMailService implements MailService {

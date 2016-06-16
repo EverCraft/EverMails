@@ -20,7 +20,7 @@ import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 
 import fr.evercraft.everapi.plugin.EPlugin;
-import fr.evercraft.everapi.services.mail.MailService;
+import fr.evercraft.everapi.services.MailService;
 import fr.evercraft.evermails.service.EMailService;
 
 @Plugin(id = "fr.evercraft.evermails", 
