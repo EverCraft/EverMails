@@ -29,9 +29,9 @@ import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
 import fr.evercraft.everapi.EAMessage.EAMessages;
+import fr.evercraft.everapi.command.ECommand;
 import fr.evercraft.everapi.plugin.EChat;
-import fr.evercraft.everapi.plugin.ECommand;
-import fr.evercraft.everapi.services.pagination.ESubCommand;
+import fr.evercraft.everapi.services.pagination.CommandPagination;
 import fr.evercraft.evermails.EMMessage.EMMessages;
 
 public class EMCommand extends ECommand<EverMails> {
@@ -268,25 +268,26 @@ public class EMCommand extends ECommand<EverMails> {
 	}
 	
 	private boolean commandHelp(CommandSource source) {
-		LinkedHashMap<String, ESubCommand> commands = new LinkedHashMap<String, ESubCommand>();
+		LinkedHashMap<String, CommandPagination> commands = new LinkedHashMap<String, CommandPagination>();
+		/*
 		if(source.hasPermission(EMPermissions.RELOAD.get())) {
-			commands.put(this.getName() + " reload", new ESubCommand(this.helpReload(source), EAMessages.RELOAD_DESCRIPTION.getText()));
+			commands.put(this.getName() + " reload", new CommandPagination(this.helpReload(source), EAMessages.RELOAD_DESCRIPTION.getText()));
 		}
 		if(source.hasPermission(EMPermissions.LIST.get())) {
-			commands.put(this.getName() + " list", new ESubCommand(this.helpList(source), EMMessages.LIST_DESCRIPTION.getText()));
+			commands.put(this.getName() + " list", new CommandPagination(this.helpList(source), EMMessages.LIST_DESCRIPTION.getText()));
 		}
 		if(source.hasPermission(EMPermissions.SET.get())) {
-			commands.put(this.getName() + " set", new ESubCommand(this.helpSet(source), EMMessages.SET_DESCRIPTION.getText()));
+			commands.put(this.getName() + " set", new CommandPagination(this.helpSet(source), EMMessages.SET_DESCRIPTION.getText()));
 		}
 		if(source.hasPermission(EMPermissions.DELETE.get())) {
-			commands.put(this.getName() + " delete", new ESubCommand(this.helpDelete(source), EMMessages.DELETE_DESCRIPTION.getText()));
+			commands.put(this.getName() + " delete", new CommandPagination(this.helpDelete(source), EMMessages.DELETE_DESCRIPTION.getText()));
 		}
 		if(source.hasPermission(EMPermissions.ALERT.get())) {
-			commands.put(this.getName() + " alert", new ESubCommand(this.helpAlert(source), EMMessages.ALERT_DESCRIPTION.getText()));
+			commands.put(this.getName() + " alert", new CommandPagination(this.helpAlert(source), EMMessages.ALERT_DESCRIPTION.getText()));
 		}
 		if(source.hasPermission(EMPermissions.SEND.get())) {
-			commands.put(this.getName() + " send", new ESubCommand(this.helpSend(source), EMMessages.SEND_DESCRIPTION.getText()));
-		}
+			commands.put(this.getName() + " send", new CommandPagination(this.helpSend(source), EMMessages.SEND_DESCRIPTION.getText()));
+		}*/
 		this.plugin.getEverAPI().getManagerService().getEPagination().helpSubCommand(commands, source, this.plugin);
 		return true;
 	}
