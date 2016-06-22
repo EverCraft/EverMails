@@ -35,7 +35,7 @@ public enum EMPermissions implements EnumPermission {
 	ALERT("use.alert"),
 	SEND("use.send");
 	
-	private final static String prefix = "evermail";
+	private final static String prefix = "evermails";
 	
 	private final String permission;
     
