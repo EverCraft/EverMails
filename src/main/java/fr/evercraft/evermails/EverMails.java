@@ -21,6 +21,12 @@ import org.spongepowered.api.plugin.Plugin;
 
 import fr.evercraft.everapi.plugin.EPlugin;
 import fr.evercraft.everapi.services.MailService;
+import fr.evercraft.evermails.command.sub.EMAlert;
+import fr.evercraft.evermails.command.sub.EMDelete;
+import fr.evercraft.evermails.command.sub.EMList;
+import fr.evercraft.evermails.command.sub.EMReload;
+import fr.evercraft.evermails.command.sub.EMSend;
+import fr.evercraft.evermails.command.sub.EMSet;
 import fr.evercraft.evermails.service.EMailService;
 
 @Plugin(id = "fr.evercraft.evermails", 
@@ -52,7 +58,14 @@ public class EverMails extends EPlugin {
 	
 	@Override
 	protected void onCompleteEnable() {
-		new EMCommand(this);
+		EMCommand command = new EMCommand(this);
+		
+		command.add(new EMReload(this, command));
+		command.add(new EMAlert(this, command));
+		command.add(new EMDelete(this, command));
+		command.add(new EMList(this, command));
+		command.add(new EMSend(this, command));
+		command.add(new EMSet(this, command));
 	}
 
 	protected void onReload(){
