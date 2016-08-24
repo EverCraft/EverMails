@@ -48,9 +48,9 @@ public class EMSet extends ESubCommand<EverMails> {
 	
 	public List<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		List<String> suggests = new ArrayList<String>();
-		if(args.size() == 1) {
+		if (args.size() == 1) {
 			suggests.addAll(this.plugin.getService().getMails().keySet());
-		} else if(args.size() == 2) {
+		} else if (args.size() == 2) {
 			suggests.add("@");
 		}
 		return suggests;
@@ -65,7 +65,7 @@ public class EMSet extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if(args.size() == 2) {
+		if (args.size() == 2) {
 			return commandSet(source, args.get(0), args.get(1));
 		}
 		source.sendMessage(this.help(source));
@@ -75,11 +75,11 @@ public class EMSet extends ESubCommand<EverMails> {
 	private boolean commandSet(CommandSource player, String identifier, String address) {
 		String address_init = this.plugin.getService().getMails().get(identifier);
 		// Adresse mail différente
-		if(address_init == null || !address_init.equalsIgnoreCase(address)) {
+		if (address_init == null || !address_init.equalsIgnoreCase(address)) {
 			// Adresse mail correcte
-			if(this.plugin.getService().setMail(identifier, address)) {
+			if (this.plugin.getService().setMail(identifier, address)) {
 				// Joueur identique
-				if(player.getName().equalsIgnoreCase(identifier)) {
+				if (player.getName().equalsIgnoreCase(identifier)) {
 					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SET_PLAYER.get()
 							.replaceAll("<player>", identifier)
 							.replaceAll("<address>", address)));

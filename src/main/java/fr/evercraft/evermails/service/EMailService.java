@@ -64,7 +64,7 @@ public class EMailService implements MailService {
 		
 		Properties properties = new Properties(); 		
 		Session session;
-		if(this.plugin.getConfigs().getAuthentification()) {
+		if (this.plugin.getConfigs().getAuthentification()) {
 			properties.put("mail.smtp.auth", String.valueOf(this.plugin.getConfigs().getAuthentification()));
 			properties.put("mail.smtp.starttls.enable", String.valueOf(this.plugin.getConfigs().getStarttls()));
 			properties.put("mail.smtp.host", String.valueOf(this.plugin.getConfigs().getHost()));
@@ -105,14 +105,14 @@ public class EMailService implements MailService {
 		Preconditions.checkNotNull(message, "message");
 		
 		boolean resultat = false;
-		for(String adress : this.mails.values()) {
+		for (String adress : this.mails.values()) {
 			resultat = send(adress, object, message) || resultat;
 		}
 		return resultat;
 	}
 	
 	public void log(final String destinataire, final String object, final String message) {
-		if(this.logger) {
+		if (this.logger) {
 			this.plugin.getLogger().info("Mail sent to '" + destinataire + "' : (Object='" + object + "';Message='" + message + "')");
 		}
 	}
@@ -126,7 +126,7 @@ public class EMailService implements MailService {
 		Preconditions.checkNotNull(address, "address");
 		
 		Pattern pattern = Pattern.compile(MailService.EMAIL_PATTERN);
-		if(pattern.matcher(address).matches()) {
+		if (pattern.matcher(address).matches()) {
 			this.plugin.getConfigs().setMail(identifier, address);
 			this.mails.put(identifier, address);
 			return true;

@@ -65,7 +65,7 @@ public class EMConfig extends EConfig {
 		addDefault("smtp.port", "587");
 		
 		
-		if(this.get("mails").getValue() == null) {
+		if (this.get("mails").getValue() == null) {
 			addComment("mails", "");
 			
 			addDefault("mails.rexbut", "rexbut@evercraft.fr");
@@ -104,10 +104,10 @@ public class EMConfig extends EConfig {
 	public Map<String, String> getMails() {
 		Map<String, String> map = new HashMap<String, String>();
 		Pattern pattern = Pattern.compile(MailService.EMAIL_PATTERN);
-		for(Entry<Object, ? extends CommentedConfigurationNode> mail : this.get("mails").getChildrenMap().entrySet()) {
-			if(mail.getKey() instanceof String) {
+		for (Entry<Object, ? extends CommentedConfigurationNode> mail : this.get("mails").getChildrenMap().entrySet()) {
+			if (mail.getKey() instanceof String) {
 				String adress = mail.getValue().getString(null);
-				if(adress != null && pattern.matcher(adress).matches()) {
+				if (adress != null && pattern.matcher(adress).matches()) {
 					map.put((String) mail.getKey(), adress);
 				}
 			}

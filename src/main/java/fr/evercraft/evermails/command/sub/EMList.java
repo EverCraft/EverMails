@@ -58,7 +58,7 @@ public class EMList extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if(args.size() == 0) {
+		if (args.size() == 0) {
 			return commandList(source);
 		}
 		source.sendMessage(this.help(source));
@@ -69,7 +69,7 @@ public class EMList extends ESubCommand<EverMails> {
 		List<Text> list = new ArrayList<Text>();
 		
 		// Aucune adresse mail
-		if(this.plugin.getService().getMails().isEmpty()) {
+		if (this.plugin.getService().getMails().isEmpty()) {
 			list.add(EMMessages.LIST_EMPTY.getText());
 		// Des adresses sont enregistré 
 		} else {

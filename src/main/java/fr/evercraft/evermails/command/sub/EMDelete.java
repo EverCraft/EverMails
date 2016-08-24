@@ -48,7 +48,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 	
 	public List<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		List<String> suggests = new ArrayList<String>();
-		if(args.size() == 1) {
+		if (args.size() == 1) {
 			suggests.addAll(this.plugin.getService().getMails().keySet());
 		}
 		return suggests;
@@ -62,7 +62,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if(args.size() == 2) {
+		if (args.size() == 2) {
 			return commandDel(source, args.get(0));
 		}
 		source.sendMessage(this.help(source));
@@ -72,10 +72,10 @@ public class EMDelete extends ESubCommand<EverMails> {
 	private boolean commandDel(CommandSource player, String identifier) {
 		String address = this.plugin.getService().getMails().get(identifier);
 		// Adresse mail enregistré
-		if(address != null) {
+		if (address != null) {
 			this.plugin.getService().removeMail(identifier);
 			// Joueur identique
-			if(player.getName().equalsIgnoreCase(identifier)) {
+			if (player.getName().equalsIgnoreCase(identifier)) {
 				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_EQUALS.get()
 						.replaceAll("<player>", identifier)
 						.replaceAll("<address>", address)));
@@ -89,7 +89,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 		// Aucune adresse mail enregistré
 		} else {
 			// Joueur identique
-			if(player.getName().equalsIgnoreCase(identifier)) {
+			if (player.getName().equalsIgnoreCase(identifier)) {
 				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_ERROR_EQUALS.get()
 						.replaceAll("<player>", identifier)));
 			// Joueur différent

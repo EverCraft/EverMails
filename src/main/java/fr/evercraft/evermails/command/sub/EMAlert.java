@@ -48,7 +48,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 	
 	public List<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		List<String> suggests = new ArrayList<String>();
-		if(args.size() == 1) {
+		if (args.size() == 1) {
 			suggests.add("Message...");
 		}
 		return suggests;
@@ -62,7 +62,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if(args.size() == 2) {
+		if (args.size() == 2) {
 			return commandAlert(source, String.join(" ", args));
 		}
 		source.sendMessage(this.help(source));
@@ -71,9 +71,9 @@ public class EMAlert extends ESubCommand<EverMails> {
 
 	private boolean commandAlert(CommandSource player, String message) {
 		// Des adresses sont enregistré
-		if(!this.plugin.getService().getMails().isEmpty()) {
+		if (!this.plugin.getService().getMails().isEmpty()) {
 			// Mail envoyé
-			if(this.plugin.getService().alert(
+			if (this.plugin.getService().alert(
 					EMMessages.ALERT_OBJECT.get()
 						.replaceAll("<player>", player.getName()), 
 					EMMessages.ALERT_MESSAGE.get()
