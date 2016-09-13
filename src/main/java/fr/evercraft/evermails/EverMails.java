@@ -19,6 +19,7 @@ package fr.evercraft.evermails;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 
+import fr.evercraft.everapi.EverAPI;
 import fr.evercraft.everapi.plugin.EPlugin;
 import fr.evercraft.everapi.services.MailService;
 import fr.evercraft.evermails.command.sub.EMAlert;
@@ -29,15 +30,15 @@ import fr.evercraft.evermails.command.sub.EMSend;
 import fr.evercraft.evermails.command.sub.EMSet;
 import fr.evercraft.evermails.service.EMailService;
 
-@Plugin(id = "fr.evercraft.evermails", 
+@Plugin(id = "evermails", 
 		name = "EverMails", 
-		version = "1.2", 
+		version = EverAPI.VERSION, 
 		description = "Sending mail",
 		url = "http://evercraft.fr/",
 		authors = {"rexbut"},
 		dependencies = {
-		    @Dependency(id = "fr.evercraft.everapi", version = "1.2"),
-		    @Dependency(id = "fr.evercraft.everchat", optional = true)
+		    @Dependency(id = "everapi", version = EverAPI.VERSION),
+		    @Dependency(id = "everchat", version = EverAPI.VERSION, optional = true)
 		})
 public class EverMails extends EPlugin {
 	private EMConfig configs;
