@@ -38,7 +38,8 @@ import fr.evercraft.evermails.service.EMailService;
 		authors = {"rexbut"},
 		dependencies = {
 		    @Dependency(id = "everapi", version = EverAPI.VERSION),
-		    @Dependency(id = "everchat", version = EverAPI.VERSION, optional = true)
+		    @Dependency(id = "everchat", version = EverAPI.VERSION, optional = true),
+		    @Dependency(id = "spongeapi", version = EverAPI.SPONGEAPI_VERSION)
 		})
 public class EverMails extends EPlugin {
 	private EMConfig configs;
