@@ -57,7 +57,7 @@ public class EMSend extends ESubCommand<EverMails> {
 	}
 
 	public Text help(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_MESSAGE.get() + ">")
+		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_PLAYER +  "> <" + EAMessages.ARGS_MESSAGE.get() + ">")
 				.onClick(TextActions.suggestCommand("/" + this.getName() + " "))
 				.color(TextColors.RED)
 				.build();
@@ -65,12 +65,11 @@ public class EMSend extends ESubCommand<EverMails> {
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
 		if (args.size() == 2) {
-			String identifier = args.get(1);
-			args.remove(0);
-			return commandSend(source, identifier, String.join(" ", args));
+			return this.commandSend(source, args.get(0), args.get(1));
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandSend(CommandSource player, String identifier, String message) {

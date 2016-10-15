@@ -73,11 +73,11 @@ public class EMConfig extends EConfig {
 		}
 	}
 	
-	public boolean getAuthentification() {
+	public boolean isAuthentification() {
 		return this.get("smtp.auth").getBoolean(false);
 	}
 	
-	public boolean getStarttls() {
+	public boolean isStarttls() {
 		return this.get("smtp.starttls").getBoolean(false);
 	}
 	
@@ -97,7 +97,7 @@ public class EMConfig extends EConfig {
 		return this.get("smtp.password").getString("");
 	}
 	
-	public boolean getLogger() {
+	public boolean isLogger() {
 		return this.get("logger").getBoolean(false);
 	}
 	

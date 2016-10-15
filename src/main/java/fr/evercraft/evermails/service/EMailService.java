@@ -27,6 +27,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.google.common.base.Preconditions;
@@ -49,7 +50,7 @@ public class EMailService implements MailService {
 	}
 	
 	public void reload() {
-		this.logger = this.plugin.getConfigs().getLogger();
+		this.logger = this.plugin.getConfigs().isLogger();
 		
 		this.mails = new ConcurrentHashMap<String, String>(this.plugin.getConfigs().getMails());
 	}
@@ -64,10 +65,11 @@ public class EMailService implements MailService {
 		
 		Properties properties = new Properties(); 		
 		Session session;
-		if (this.plugin.getConfigs().getAuthentification()) {
-			properties.put("mail.smtp.auth", String.valueOf(this.plugin.getConfigs().getAuthentification()));
-			properties.put("mail.smtp.starttls.enable", String.valueOf(this.plugin.getConfigs().getStarttls()));
-			properties.put("mail.smtp.host", String.valueOf(this.plugin.getConfigs().getHost()));
+		if (this.plugin.getConfigs().isAuthentification()) {
+			this.plugin.getLogger().warn("isAuthentification");
+			properties.put("mail.smtp.auth", String.valueOf(this.plugin.getConfigs().isAuthentification()));
+			properties.put("mail.smtp.starttls.enable", String.valueOf(this.plugin.getConfigs().isStarttls()));
+			properties.put("mail.smtp.host", this.plugin.getConfigs().getHost());
 			properties.put("mail.smtp.port", String.valueOf(this.plugin.getConfigs().getPort()));
 			
 			session = Session.getInstance(properties,
@@ -84,6 +86,7 @@ public class EMailService implements MailService {
 	    MimeMessage minemessage = new MimeMessage(session);
 	    Transport transport = null;
 	    try { 
+	    	minemessage.setFrom(new InternetAddress(this.plugin.getConfigs().getUserName()));
 	    	minemessage.setText(message); 
 	        minemessage.setSubject(object); 
 	        minemessage.addRecipients(Message.RecipientType.TO, destinataire);

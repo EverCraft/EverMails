@@ -58,11 +58,12 @@ public class EMReload extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if (args.size() == 0) {
-			return commandReload(source);
+		if (args.isEmpty()) {
+			return this.commandReload(source);
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandReload(final CommandSource player) {

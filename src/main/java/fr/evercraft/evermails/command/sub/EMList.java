@@ -58,11 +58,12 @@ public class EMList extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if (args.size() == 0) {
-			return commandList(source);
+		if (args.isEmpty()) {
+			return this.commandList(source);
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandList(final CommandSource player) {

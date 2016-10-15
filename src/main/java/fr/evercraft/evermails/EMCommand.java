@@ -16,6 +16,10 @@
  */
 package fr.evercraft.evermails;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
 
@@ -41,5 +45,26 @@ public class EMCommand extends EParentCommand<EverMails> {
 	@Override
 	public boolean testPermissionHelp(final CommandSource source) {
 		return source.hasPermission(EMPermissions.HELP.get());
+	}
+	
+	@Override
+	protected List<String> getArg(final String arg) {
+		List<String> args = super.getArg(arg);
+		
+		// Le message est transformer en un seul argument
+		if (args.size() > 2 && args.get(0).equalsIgnoreCase("alert")) {
+			List<String> args_send = new ArrayList<String>();
+			args_send.add(args.get(0));
+			args_send.add(args.get(1));
+			args_send.add(Pattern.compile("^[ \"]*" + args.get(0) + "[ \"][ ]*").matcher(arg).replaceAll(""));
+			return args_send;
+		} else if(args.size() > 3 && args.get(0).equalsIgnoreCase("send")) {
+			List<String> args_send = new ArrayList<String>();
+			args_send.add(args.get(0));
+			args_send.add(args.get(1));
+			args_send.add(Pattern.compile("^[ \"]*" + args.get(0) + "[ \"]*" + args.get(1) + "[ \"][ ]*").matcher(arg).replaceAll(""));
+			return args_send;
+		}
+		return args;
 	}
 }

@@ -62,11 +62,12 @@ public class EMAlert extends ESubCommand<EverMails> {
 	}
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
-		if (args.size() == 2) {
-			return commandAlert(source, String.join(" ", args));
+		if (args.size() == 1) {
+			return this.commandAlert(source, args.get(1));
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandAlert(CommandSource player, String message) {

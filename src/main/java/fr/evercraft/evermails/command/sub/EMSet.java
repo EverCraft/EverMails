@@ -66,10 +66,11 @@ public class EMSet extends ESubCommand<EverMails> {
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
 		if (args.size() == 2) {
-			return commandSet(source, args.get(0), args.get(1));
+			return this.commandSet(source, args.get(0), args.get(1));
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandSet(CommandSource player, String identifier, String address) {

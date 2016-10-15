@@ -63,10 +63,11 @@ public class EMDelete extends ESubCommand<EverMails> {
 	
 	public boolean subExecute(final CommandSource source, final List<String> args) {
 		if (args.size() == 2) {
-			return commandDel(source, args.get(0));
+			return this.commandDel(source, args.get(0));
+		} else {
+			source.sendMessage(this.help(source));
+			return false;
 		}
-		source.sendMessage(this.help(source));
-		return false;
 	}
 
 	private boolean commandDel(CommandSource player, String identifier) {
