@@ -41,7 +41,7 @@ import fr.evercraft.evermails.service.EMailService;
 		    @Dependency(id = "everchat", version = EverAPI.VERSION, optional = true),
 		    @Dependency(id = "spongeapi", version = EverAPI.SPONGEAPI_VERSION)
 		})
-public class EverMails extends EPlugin {
+public class EverMails extends EPlugin<EverMails> {
 	private EMConfig configs;
 	private EMMessage messages;
 	

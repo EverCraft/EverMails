@@ -26,7 +26,7 @@ import fr.evercraft.everapi.plugin.file.EConfig;
 import fr.evercraft.everapi.plugin.file.EMessage;
 import fr.evercraft.everapi.services.MailService;
 
-public class EMConfig extends EConfig {
+public class EMConfig extends EConfig<EverMails> {
 
 	public EMConfig(final EverMails plugin) {
 		super(plugin);
