@@ -26,7 +26,6 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
-import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.command.ESubCommand;
 import fr.evercraft.evermails.EMCommand;
 import fr.evercraft.evermails.EMMessage.EMMessages;
@@ -75,9 +74,9 @@ public class EMList extends ESubCommand<EverMails> {
 		// Des adresses sont enregistré 
 		} else {
 			for (Entry<String, String> mail : this.plugin.getService().getMails().entrySet()) {
-				list.add(EChat.of(EMMessages.LIST_LINE.get()
-						.replaceAll("<player>", mail.getKey())
-						.replaceAll("<address>", mail.getValue())));
+				list.add(EMMessages.LIST_LINE.getFormat().toText(
+						"<player>", mail.getKey(),
+						"<address>", mail.getValue()));
 			}
 		}
 		

@@ -26,7 +26,6 @@ import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
 import fr.evercraft.everapi.EAMessage.EAMessages;
-import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.command.ESubCommand;
 import fr.evercraft.evermails.EMCommand;
 import fr.evercraft.evermails.EMMessage.EMMessages;
@@ -55,7 +54,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 	}
 
 	public Text help(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_PLAYER.get() + ">")
+		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_PLAYER.getString() + ">")
 				.onClick(TextActions.suggestCommand("/" + this.getName() + " "))
 				.color(TextColors.RED)
 				.build();
@@ -72,34 +71,37 @@ public class EMDelete extends ESubCommand<EverMails> {
 
 	private boolean commandDel(CommandSource player, String identifier) {
 		String address = this.plugin.getService().getMails().get(identifier);
-		// Adresse mail enregistré
-		if (address != null) {
-			this.plugin.getService().removeMail(identifier);
-			// Joueur identique
-			if (player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_EQUALS.get()
-						.replaceAll("<player>", identifier)
-						.replaceAll("<address>", address)));
-			// Joueur différent
-			} else {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_PLAYER.get()
-						.replaceAll("<player>", identifier)
-						.replaceAll("<address>", address)));
-			}
-			return true;
 		// Aucune adresse mail enregistré
-		} else {
+		if (address == null) {
 			// Joueur identique
 			if (player.getName().equalsIgnoreCase(identifier)) {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_ERROR_EQUALS.get()
-						.replaceAll("<player>", identifier)));
+				EMMessages.DELETE_ERROR_EQUALS.sender()
+					.replace("<player>", identifier)
+					.sendTo(player);
 			// Joueur différent
 			} else {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.DELETE_ERROR_PLAYER.get()
-						.replaceAll("<player>", identifier)));
+				EMMessages.DELETE_ERROR_PLAYER.sender()
+					.replace("<player>", identifier)
+					.sendTo(player);
 			}
+			return false;
 		}
-		return false;
+		
+		this.plugin.getService().removeMail(identifier);
+		// Joueur identique
+		if (player.getName().equalsIgnoreCase(identifier)) {
+			EMMessages.DELETE_EQUALS.sender()
+				.replace("<player>", identifier)
+				.replace("<address>", address)
+				.sendTo(player);
+		// Joueur différent
+		} else {
+			EMMessages.DELETE_PLAYER.sender()
+				.replace("<player>", identifier)
+				.replace("<address>", address)
+				.sendTo(player);
+		}
+		return true;
 	}
 	
 }

@@ -26,7 +26,6 @@ import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
 import fr.evercraft.everapi.EAMessage.EAMessages;
-import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.command.ESubCommand;
 import fr.evercraft.evermails.EMCommand;
 import fr.evercraft.evermails.EMMessage.EMMessages;
@@ -57,7 +56,7 @@ public class EMSend extends ESubCommand<EverMails> {
 	}
 
 	public Text help(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_PLAYER +  "> <" + EAMessages.ARGS_MESSAGE.get() + ">")
+		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_PLAYER.getString() +  "> <" + EAMessages.ARGS_MESSAGE.getString() + ">")
 				.onClick(TextActions.suggestCommand("/" + this.getName() + " "))
 				.color(TextColors.RED)
 				.build();
@@ -74,40 +73,44 @@ public class EMSend extends ESubCommand<EverMails> {
 
 	private boolean commandSend(CommandSource player, String identifier, String message) {
 		String address = this.plugin.getService().getMails().get(identifier);
-		// Adresse mail connu
-		if (address != null) {
-			// Mail envoyé
-			if (this.plugin.getService().send(
-					address,
-					EMMessages.SEND_OBJECT.get()
-					.replaceAll("<player>", player.getName()), 
-					EMMessages.SEND_MESSAGE.get()
-						.replaceAll("<player>", player.getName())
-						.replaceAll("<message>", message))) {
-				// Joueur identique
-				if (player.getName().equalsIgnoreCase(identifier)) {
-					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_EQUALS.get()
-							.replaceAll("<player>", identifier)
-							.replaceAll("<address>", address)
-							.replaceAll("<message>", message)));
-				// Joueur différent
-				} else {
-					player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_PLAYER.get()
-							.replaceAll("<player>", identifier)
-							.replaceAll("<address>", address)
-							.replaceAll("<message>", message)));
-				}
-				return true;
-			// Erreur lors de l'envoie
-			} else {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EAMessages.COMMAND_ERROR.get()));
-			}
 		// Aucune adresse mail connu
-		} else {
-			player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.SEND_ERROR.get()
-					.replaceAll("<player>", identifier)
-					.replaceAll("<message>", message)));
+		if (address == null) {
+			EMMessages.SEND_ERROR.sender()
+				.replace("<player>", identifier)
+				.replace("<message>", message)
+				.sendTo(player);
+			return false;
 		}
-		return false;
+		
+		// Erreur lors de l'envoie
+		if (!this.plugin.getService().send(
+				address,
+				EMMessages.SEND_OBJECT.getFormat().toString("<player>", player.getName()), 
+				EMMessages.SEND_MESSAGE.getFormat().toString(
+					"<player>", player.getName(),
+					"<message>", message))) {
+			
+			EAMessages.COMMAND_ERROR.sender()
+				.prefix(EMMessages.PREFIX)
+				.sendTo(player);
+			return false;
+		}
+		
+		// Joueur identique
+		if (player.getName().equalsIgnoreCase(identifier)) {
+			EMMessages.SEND_EQUALS.sender()
+				.replace("<player>", identifier)
+				.replace("<address>", address)
+				.replace("<message>", message)
+				.sendTo(player);
+		// Joueur différent
+		} else {
+			EMMessages.SEND_PLAYER.sender()
+				.replace("<player>", identifier)
+				.replace("<address>", address)
+				.replace("<message>", message)
+				.sendTo(player);
+		}
+		return true;
 	}
 }

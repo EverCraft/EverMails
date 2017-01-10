@@ -26,7 +26,6 @@ import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
 
 import fr.evercraft.everapi.EAMessage.EAMessages;
-import fr.evercraft.everapi.plugin.EChat;
 import fr.evercraft.everapi.plugin.command.ESubCommand;
 import fr.evercraft.evermails.EMCommand;
 import fr.evercraft.evermails.EMMessage.EMMessages;
@@ -55,7 +54,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 	}
 
 	public Text help(final CommandSource source) {
-		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_MESSAGE.get() + ">")
+		return Text.builder("/" + this.getName() + " <" + EAMessages.ARGS_MESSAGE.getString() + ">")
 				.onClick(TextActions.suggestCommand("/" + this.getName() + " "))
 				.color(TextColors.RED)
 				.build();
@@ -71,28 +70,32 @@ public class EMAlert extends ESubCommand<EverMails> {
 	}
 
 	private boolean commandAlert(CommandSource player, String message) {
-		// Des adresses sont enregistré
-		if (!this.plugin.getService().getMails().isEmpty()) {
-			// Mail envoyé
-			if (this.plugin.getService().alert(
-					EMMessages.ALERT_OBJECT.get()
-						.replaceAll("<player>", player.getName()), 
-					EMMessages.ALERT_MESSAGE.get()
-						.replaceAll("<player>", player.getName())
-						.replaceAll("<message>", message))) {
-				
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.ALERT_PLAYER.get()
-						.replaceAll("<message>", message)));
-				return true;
-			// Erreur lors de l'envoie
-			} else {
-				player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EAMessages.COMMAND_ERROR.get()));
-			}
 		// Aucune adresse mail
-		} else {
-			player.sendMessage(EChat.of(EMMessages.PREFIX.get() + EMMessages.ALERT_ERROR.get()));
+		if (this.plugin.getService().getMails().isEmpty()) {
+			EMMessages.ALERT_ERROR.sender()
+				.replace("<message>", message)
+				.sendTo(player);
+			return false;
 		}
-		return false;
+		
+		// Mail envoyé
+		if (!this.plugin.getService().alert(
+				EMMessages.ALERT_OBJECT.getFormat()
+					.toString("<player>", player.getName()), 
+				EMMessages.ALERT_MESSAGE.getFormat().toString(
+					"<player>", player.getName(),
+					"<message>", message))) {
+			
+			EAMessages.COMMAND_ERROR.sender()
+				.prefix(EMMessages.PREFIX)
+				.sendTo(player);
+			return false;
+		}
+		
+		EMMessages.ALERT_PLAYER.sender()
+			.replace("<message>", message)
+			.sendTo(player);
+		return true;
 	}
 	
 }
