@@ -17,6 +17,7 @@
 package fr.evercraft.evermails.command.sub;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.spongepowered.api.command.CommandException;
@@ -45,7 +46,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 		return EMMessages.ALERT_DESCRIPTION.getText();
 	}
 	
-	public List<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		List<String> suggests = new ArrayList<String>();
 		if (args.size() == 1) {
 			suggests.add("Message...");

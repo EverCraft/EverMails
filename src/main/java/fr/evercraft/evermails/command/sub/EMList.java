@@ -17,6 +17,7 @@
 package fr.evercraft.evermails.command.sub;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -45,7 +46,7 @@ public class EMList extends ESubCommand<EverMails> {
 		return EMMessages.LIST_DESCRIPTION.getText();
 	}
 	
-	public List<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		return new ArrayList<String>();
 	}
 
