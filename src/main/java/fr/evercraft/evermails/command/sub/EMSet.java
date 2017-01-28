@@ -16,7 +16,7 @@
  */
 package fr.evercraft.evermails.command.sub;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,13 +47,12 @@ public class EMSet extends ESubCommand<EverMails> {
 	}
 	
 	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
-		List<String> suggests = new ArrayList<String>();
 		if (args.size() == 1) {
-			suggests.addAll(this.plugin.getService().getMails().keySet());
+			return this.plugin.getService().getMails().keySet();
 		} else if (args.size() == 2) {
-			suggests.add("@");
+			return Arrays.asList("@");
 		}
-		return suggests;
+		return Arrays.asList();
 	}
 
 	public Text help(final CommandSource source) {
