@@ -66,7 +66,7 @@ public class EMailService implements MailService {
 		Properties properties = new Properties(); 		
 		Session session;
 		if (this.plugin.getConfigs().isAuthentification()) {
-			this.plugin.getLogger().warn("isAuthentification");
+			this.plugin.getELogger().warn("isAuthentification");
 			properties.put("mail.smtp.auth", String.valueOf(this.plugin.getConfigs().isAuthentification()));
 			properties.put("mail.smtp.starttls.enable", String.valueOf(this.plugin.getConfigs().isStarttls()));
 			properties.put("mail.smtp.host", this.plugin.getConfigs().getHost());
@@ -95,7 +95,7 @@ public class EMailService implements MailService {
 	        this.log(destinataire, object, message);
 	        resultat = true;
 	    } catch (MessagingException e) { 
-	        this.plugin.getLogger().warn("Error when sending an email (Address='" + destinataire + "';Object='" + object + "';Message='" + message + "') : " + e.getMessage());
+	        this.plugin.getELogger().warn("Error when sending an email (Address='" + destinataire + "';Object='" + object + "';Message='" + message + "') : " + e.getMessage());
 	    } finally { 
 	        try { if (transport != null) transport.close(); } catch (MessagingException e) {} 
 	    } 
@@ -116,7 +116,7 @@ public class EMailService implements MailService {
 	
 	public void log(final String destinataire, final String object, final String message) {
 		if (this.logger) {
-			this.plugin.getLogger().info("Mail sent to '" + destinataire + "' : (Object='" + object + "';Message='" + message + "')");
+			this.plugin.getELogger().info("Mail sent to '" + destinataire + "' : (Object='" + object + "';Message='" + message + "')");
 		}
 	}
 

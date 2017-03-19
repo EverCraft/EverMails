@@ -34,7 +34,7 @@ public class EMConfig extends EConfig<EverMails> {
 	
 	public void reload() {
 		super.reload();
-		this.plugin.getLogger().setDebug(this.isDebug());
+		this.plugin.getELogger().setDebug(this.isDebug());
 	}
 	
 	@Override
