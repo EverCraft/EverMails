@@ -19,6 +19,7 @@ package fr.evercraft.evermails.command.sub;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandSource;
@@ -46,7 +47,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 		return EMMessages.DELETE_DESCRIPTION.getText();
 	}
 	
-	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> tabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		if (args.size() == 1) {
 			return this.plugin.getService().getMails().keySet();
 		}
@@ -60,16 +61,16 @@ public class EMDelete extends ESubCommand<EverMails> {
 				.build();
 	}
 	
-	public boolean subExecute(final CommandSource source, final List<String> args) {
+	public CompletableFuture<Boolean> execute(final CommandSource source, final List<String> args) {
 		if (args.size() == 2) {
 			return this.commandDel(source, args.get(0));
 		} else {
 			source.sendMessage(this.help(source));
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 	}
 
-	private boolean commandDel(CommandSource player, String identifier) {
+	private CompletableFuture<Boolean> commandDel(CommandSource player, String identifier) {
 		String address = this.plugin.getService().getMails().get(identifier);
 		// Aucune adresse mail enregistré
 		if (address == null) {
@@ -84,7 +85,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 					.replace("<player>", identifier)
 					.sendTo(player);
 			}
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 		
 		this.plugin.getService().removeMail(identifier);
@@ -101,7 +102,7 @@ public class EMDelete extends ESubCommand<EverMails> {
 				.replace("<address>", address)
 				.sendTo(player);
 		}
-		return true;
+		return CompletableFuture.completedFuture(true);
 	}
 	
 }

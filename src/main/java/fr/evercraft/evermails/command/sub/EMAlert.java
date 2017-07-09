@@ -19,6 +19,7 @@ package fr.evercraft.evermails.command.sub;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandSource;
@@ -46,7 +47,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 		return EMMessages.ALERT_DESCRIPTION.getText();
 	}
 	
-	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> tabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		if (args.size() == 1) {
 			return Arrays.asList("Message...");
 		}
@@ -60,22 +61,22 @@ public class EMAlert extends ESubCommand<EverMails> {
 				.build();
 	}
 	
-	public boolean subExecute(final CommandSource source, final List<String> args) {
+	public CompletableFuture<Boolean> execute(final CommandSource source, final List<String> args) {
 		if (args.size() == 1) {
 			return this.commandAlert(source, args.get(1));
 		} else {
 			source.sendMessage(this.help(source));
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 	}
 
-	private boolean commandAlert(CommandSource player, String message) {
+	private CompletableFuture<Boolean> commandAlert(CommandSource player, String message) {
 		// Aucune adresse mail
 		if (this.plugin.getService().getMails().isEmpty()) {
 			EMMessages.ALERT_ERROR.sender()
 				.replace("<message>", message)
 				.sendTo(player);
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 		
 		// Mail envoyé
@@ -89,13 +90,13 @@ public class EMAlert extends ESubCommand<EverMails> {
 			EAMessages.COMMAND_ERROR.sender()
 				.prefix(EMMessages.PREFIX)
 				.sendTo(player);
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 		
 		EMMessages.ALERT_PLAYER.sender()
 			.replace("<message>", message)
 			.sendTo(player);
-		return true;
+		return CompletableFuture.completedFuture(true);
 	}
 	
 }

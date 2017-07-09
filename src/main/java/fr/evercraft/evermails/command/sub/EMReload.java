@@ -19,6 +19,7 @@ package fr.evercraft.evermails.command.sub;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandSource;
@@ -46,7 +47,7 @@ public class EMReload extends ESubCommand<EverMails> {
 		return EAMessages.RELOAD_DESCRIPTION.getText();
 	}
 	
-	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> tabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		return Arrays.asList();
 	}
 
@@ -57,20 +58,20 @@ public class EMReload extends ESubCommand<EverMails> {
 					.build();
 	}
 	
-	public boolean subExecute(final CommandSource source, final List<String> args) {
+	public CompletableFuture<Boolean> execute(final CommandSource source, final List<String> args) {
 		if (args.isEmpty()) {
 			return this.commandReload(source);
 		} else {
 			source.sendMessage(this.help(source));
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 	}
 
-	private boolean commandReload(final CommandSource player) {
+	private CompletableFuture<Boolean> commandReload(final CommandSource player) {
 		this.plugin.reload();
 		EAMessages.RELOAD_COMMAND.sender()
 			.prefix(EMMessages.PREFIX)
 			.sendTo(player);
-		return true;
+		return CompletableFuture.completedFuture(true);
 	}
 }

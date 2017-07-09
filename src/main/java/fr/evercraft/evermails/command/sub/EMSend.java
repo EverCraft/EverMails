@@ -19,6 +19,7 @@ package fr.evercraft.evermails.command.sub;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandSource;
@@ -46,7 +47,7 @@ public class EMSend extends ESubCommand<EverMails> {
 		return EMMessages.SEND_DESCRIPTION.getText();
 	}
 	
-	public Collection<String> subTabCompleter(final CommandSource source, final List<String> args) throws CommandException {
+	public Collection<String> tabCompleter(final CommandSource source, final List<String> args) throws CommandException {
 		if (args.size() == 1) {
 			return this.plugin.getService().getMails().keySet();
 		} else if (args.size() == 2) {
@@ -62,16 +63,16 @@ public class EMSend extends ESubCommand<EverMails> {
 				.build();
 	}
 	
-	public boolean subExecute(final CommandSource source, final List<String> args) {
+	public CompletableFuture<Boolean> execute(final CommandSource source, final List<String> args) {
 		if (args.size() == 2) {
 			return this.commandSend(source, args.get(0), args.get(1));
 		} else {
 			source.sendMessage(this.help(source));
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 	}
 
-	private boolean commandSend(CommandSource player, String identifier, String message) {
+	private CompletableFuture<Boolean> commandSend(CommandSource player, String identifier, String message) {
 		String address = this.plugin.getService().getMails().get(identifier);
 		// Aucune adresse mail connu
 		if (address == null) {
@@ -79,7 +80,7 @@ public class EMSend extends ESubCommand<EverMails> {
 				.replace("<player>", identifier)
 				.replace("<message>", message)
 				.sendTo(player);
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 		
 		// Erreur lors de l'envoie
@@ -93,7 +94,7 @@ public class EMSend extends ESubCommand<EverMails> {
 			EAMessages.COMMAND_ERROR.sender()
 				.prefix(EMMessages.PREFIX)
 				.sendTo(player);
-			return false;
+			return CompletableFuture.completedFuture(false);
 		}
 		
 		// Joueur identique
@@ -111,6 +112,6 @@ public class EMSend extends ESubCommand<EverMails> {
 				.replace("<message>", message)
 				.sendTo(player);
 		}
-		return true;
+		return CompletableFuture.completedFuture(true);
 	}
 }
