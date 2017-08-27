@@ -31,38 +31,38 @@ public class EMMessage extends EMessage<EverMails> {
 	}
 	
 	public enum EMMessages implements EnumMessage {
-		PREFIX("prefix", "[&4Ever&6&lMails&f] "),
-		DESCRIPTION("description", "Gestion des mails"),
+		PREFIX("PREFIX", "[&4Ever&6&lMails&f] "),
+		DESCRIPTION("DESCRIPTION", "Gestion des mails"),
 		
-		LIST_DESCRIPTION("list.description", "Affiche la liste des adresses mails", "See list of emails"),
-		LIST_TITLE("list.title", "&aLa liste des adresses mails", "&aThe list of emails"),
-		LIST_LINE("list.line", "    &6&l➤  <player> : &7<address>"),
-		LIST_EMPTY("list.empty", "&7Aucune adresse mail", "No email"),
+		LIST_DESCRIPTION("listDescription", "Affiche la liste des adresses mails", "See list of emails"),
+		LIST_TITLE("listTitle", "&aLa liste des adresses mails", "&aThe list of emails"),
+		LIST_LINE("listLine", "    &6&l➤  <player> : &7<address>"),
+		LIST_EMPTY("listEmpty", "&7Aucune adresse mail", "No email"),
 		
-		SET_DESCRIPTION("set.description", "Défini une adresse mail", "Set an e-mail"),
-		SET_PLAYER("set.player", "&7L'adresse mail de &6<player> &7a été défini en tant que &6<address>&7."),
-		SET_EQUALS("set.equals", "&7Vous avez défini votre adresse mail en &6<address>&7."),
-		SET_ERROR_PATTERN("set.errorPattern", "&cL'adresse mail n'a pas un format valide."),
-		SET_ERROR_EQUALS("set.errorEquals", "&cLes adresses mails sont identiques."),
+		SET_DESCRIPTION("setDescription", "Défini une adresse mail", "Set an e-mail"),
+		SET_PLAYER("setPlayer", "&7L'adresse mail de &6<player> &7a été défini en tant que &6<address>&7."),
+		SET_EQUALS("setEquals", "&7Vous avez défini votre adresse mail en &6<address>&7."),
+		SET_ERROR_PATTERN("setErrorPattern", "&cL'adresse mail n'a pas un format valide."),
+		SET_ERROR_EQUALS("setErrorEquals", "&cLes adresses mails sont identiques."),
 		
-		DELETE_DESCRIPTION("delete.description", "Supprime une adresse mail", "Delete an email"),
-		DELETE_PLAYER("delete.player", "&7L'adresse mail de &6<player> &7 a été supprimé"),
-		DELETE_EQUALS("delete.equals", "&7Vous avez supprimé votre adresse mail."),
-		DELETE_ERROR_PLAYER("delete.errorPlayer", "&6<identifier> &cn'a pas d'adresse mail."),
-		DELETE_ERROR_EQUALS("delete.errorEquals", "&cVous n'avez pas d'adresse mail."),
+		DELETE_DESCRIPTION("deleteDescription", "Supprime une adresse mail", "Delete an email"),
+		DELETE_PLAYER("deletePlayer", "&7L'adresse mail de &6<player> &7 a été supprimé"),
+		DELETE_EQUALS("deleteEquals", "&7Vous avez supprimé votre adresse mail."),
+		DELETE_ERROR_PLAYER("deleteErrorPlayer", "&6<identifier> &cn'a pas d'adresse mail."),
+		DELETE_ERROR_EQUALS("deleteErrorEquals", "&cVous n'avez pas d'adresse mail."),
 		
-		ALERT_DESCRIPTION("alert.description", "Envoie un message à tous les adresses mails", "Sends a message to all emails"),
-		ALERT_OBJECT("alert.object", "Avertissement de <player>"),
-		ALERT_MESSAGE("alert.message", "<message>"),
-		ALERT_PLAYER("alert.player", "&7Votre message d'avertissement a bien était envoyé."),
-		ALERT_ERROR("alert.error", "&cIl n'y a aucune adresse mail d'enregistré"),
+		ALERT_DESCRIPTION("alertDescription", "Envoie un message à tous les adresses mails", "Sends a message to all emails"),
+		ALERT_OBJECT("alertObject", "Avertissement de <player>"),
+		ALERT_MESSAGE("alertMessage", "<message>"),
+		ALERT_PLAYER("alertPlayer", "&7Votre message d'avertissement a bien était envoyé."),
+		ALERT_ERROR("alertError", "&cIl n'y a aucune adresse mail d'enregistré"),
 		
-		SEND_DESCRIPTION("send.description", "Envoie un mail à un joueur", "Send an email to a player"),
-		SEND_OBJECT("send.object", "Message de <player>", "Message of <player>"),
-		SEND_MESSAGE("send.message", "<message>"),
-		SEND_PLAYER("send.player", "&7Votre message a bien était envoyé à &6<player>&7.", "&7Your message has well was sent to &6<player>&7."),
-		SEND_EQUALS("send.equals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
-		SEND_ERROR("send.error", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
+		SEND_DESCRIPTION("sendDescription", "Envoie un mail à un joueur", "Send an email to a player"),
+		SEND_OBJECT("sendObject", "Message de <player>", "Message of <player>"),
+		SEND_MESSAGE("sendMessage", "<message>"),
+		SEND_PLAYER("sendPlayer", "&7Votre message a bien était envoyé à &6<player>&7.", "&7Your message has well was sent to &6<player>&7."),
+		SEND_EQUALS("sendEquals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
+		SEND_ERROR("sendError", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6<player>&7.");
 		
 		private final String path;
 	    private final EMessageBuilder french;
