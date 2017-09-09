@@ -23,17 +23,14 @@ import com.google.common.base.Preconditions;
 import fr.evercraft.everapi.plugin.EnumPermission;
 
 public enum EMPermissions implements EnumPermission {
-	EVERMAILS("command"),
-	
-	HELP("help"),
-	RELOAD("reload"),
-	
-	LIST("manage.list"),
-	SET("manage.set"),
-	DELETE("manage.delete"),
-	
-	ALERT("use.alert"),
-	SEND("use.send");
+	EVERMAILS("commands.execute"),
+	HELP("commands.help"),
+	RELOAD("commands.reload"),	
+	LIST("commands.list"),
+	SET("commands.set"),
+	DELETE("commands.delete"),
+	ALERT("commands.alert"),
+	SEND("commands.send");
 	
 	private final static String prefix = "evermails";
 	
