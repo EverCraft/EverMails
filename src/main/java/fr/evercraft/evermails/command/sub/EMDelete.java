@@ -77,12 +77,12 @@ public class EMDelete extends ESubCommand<EverMails> {
 			// Joueur identique
 			if (player.getName().equalsIgnoreCase(identifier)) {
 				EMMessages.DELETE_ERROR_EQUALS.sender()
-					.replace("<player>", identifier)
+					.replace("{player}", identifier)
 					.sendTo(player);
 			// Joueur différent
 			} else {
 				EMMessages.DELETE_ERROR_PLAYER.sender()
-					.replace("<player>", identifier)
+					.replace("{player}", identifier)
 					.sendTo(player);
 			}
 			return CompletableFuture.completedFuture(false);
@@ -92,14 +92,14 @@ public class EMDelete extends ESubCommand<EverMails> {
 		// Joueur identique
 		if (player.getName().equalsIgnoreCase(identifier)) {
 			EMMessages.DELETE_EQUALS.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 		// Joueur différent
 		} else {
 			EMMessages.DELETE_PLAYER.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 		}
 		return CompletableFuture.completedFuture(true);

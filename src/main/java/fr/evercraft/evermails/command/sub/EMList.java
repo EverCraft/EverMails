@@ -78,8 +78,8 @@ public class EMList extends ESubCommand<EverMails> {
 		} else {
 			for (Entry<String, String> mail : this.plugin.getService().getMails().entrySet()) {
 				list.add(EMMessages.LIST_LINE.getFormat().toText(
-						"<player>", mail.getKey(),
-						"<address>", mail.getValue()));
+						"{player}", mail.getKey(),
+						"{address}", mail.getValue()));
 			}
 		}
 		

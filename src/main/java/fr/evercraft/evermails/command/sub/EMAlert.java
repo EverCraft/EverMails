@@ -74,7 +74,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 		// Aucune adresse mail
 		if (this.plugin.getService().getMails().isEmpty()) {
 			EMMessages.ALERT_ERROR.sender()
-				.replace("<message>", message)
+				.replace("{message}", message)
 				.sendTo(player);
 			return CompletableFuture.completedFuture(false);
 		}
@@ -82,10 +82,10 @@ public class EMAlert extends ESubCommand<EverMails> {
 		// Mail envoyé
 		if (!this.plugin.getService().alert(
 				EMMessages.ALERT_OBJECT.getFormat()
-					.toString("<player>", player.getName()), 
+					.toString("{player}", player.getName()), 
 				EMMessages.ALERT_MESSAGE.getFormat().toString(
-					"<player>", player.getName(),
-					"<message>", message))) {
+					"{player}", player.getName(),
+					"{message}", message))) {
 			
 			EAMessages.COMMAND_ERROR.sender()
 				.prefix(EMMessages.PREFIX)
@@ -94,7 +94,7 @@ public class EMAlert extends ESubCommand<EverMails> {
 		}
 		
 		EMMessages.ALERT_PLAYER.sender()
-			.replace("<message>", message)
+			.replace("{message}", message)
 			.sendTo(player);
 		return CompletableFuture.completedFuture(true);
 	}

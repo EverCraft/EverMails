@@ -77,8 +77,8 @@ public class EMSend extends ESubCommand<EverMails> {
 		// Aucune adresse mail connu
 		if (address == null) {
 			EMMessages.SEND_ERROR.sender()
-				.replace("<player>", identifier)
-				.replace("<message>", message)
+				.replace("{player}", identifier)
+				.replace("{message}", message)
 				.sendTo(player);
 			return CompletableFuture.completedFuture(false);
 		}
@@ -86,10 +86,10 @@ public class EMSend extends ESubCommand<EverMails> {
 		// Erreur lors de l'envoie
 		if (!this.plugin.getService().send(
 				address,
-				EMMessages.SEND_OBJECT.getFormat().toString("<player>", player.getName()), 
+				EMMessages.SEND_OBJECT.getFormat().toString("{player}", player.getName()), 
 				EMMessages.SEND_MESSAGE.getFormat().toString(
-					"<player>", player.getName(),
-					"<message>", message))) {
+					"{player}", player.getName(),
+					"{message}", message))) {
 			
 			EAMessages.COMMAND_ERROR.sender()
 				.prefix(EMMessages.PREFIX)
@@ -100,16 +100,16 @@ public class EMSend extends ESubCommand<EverMails> {
 		// Joueur identique
 		if (player.getName().equalsIgnoreCase(identifier)) {
 			EMMessages.SEND_EQUALS.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
-				.replace("<message>", message)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
+				.replace("{message}", message)
 				.sendTo(player);
 		// Joueur différent
 		} else {
 			EMMessages.SEND_PLAYER.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
-				.replace("<message>", message)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
+				.replace("{message}", message)
 				.sendTo(player);
 		}
 		return CompletableFuture.completedFuture(true);

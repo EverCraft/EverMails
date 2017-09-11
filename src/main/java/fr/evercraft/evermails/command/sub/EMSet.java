@@ -78,8 +78,8 @@ public class EMSet extends ESubCommand<EverMails> {
 		// Adresse mail identique
 		if (address_init != null && address_init.equalsIgnoreCase(address)) {
 			EMMessages.SET_ERROR_EQUALS.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 			return CompletableFuture.completedFuture(false);
 		}
@@ -87,8 +87,8 @@ public class EMSet extends ESubCommand<EverMails> {
 		// Adresse mail incorrect
 		if (!this.plugin.getService().setMail(identifier, address)) {
 			EMMessages.SET_ERROR_PATTERN.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 			return CompletableFuture.completedFuture(false);
 		}
@@ -96,14 +96,14 @@ public class EMSet extends ESubCommand<EverMails> {
 		// Joueur identique
 		if (player.getName().equalsIgnoreCase(identifier)) {
 			EMMessages.SET_PLAYER.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 		// Joueur différent
 		} else {
 			EMMessages.SET_EQUALS.sender()
-				.replace("<player>", identifier)
-				.replace("<address>", address)
+				.replace("{player}", identifier)
+				.replace("{address}", address)
 				.sendTo(player);
 		}
 		return CompletableFuture.completedFuture(true);
