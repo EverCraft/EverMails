@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import fr.evercraft.everapi.plugin.file.EConfig;
-import fr.evercraft.everapi.plugin.file.EMessage;
 import fr.evercraft.everapi.services.MailService;
 
 public class EMConfig extends EConfig<EverMails> {
@@ -39,8 +38,7 @@ public class EMConfig extends EConfig<EverMails> {
 	
 	@Override
 	public void loadDefault() {
-		addDefault("DEBUG", false, "Displays plugin performance in the logs");
-		addDefault("LANGUAGE", EMessage.FRENCH, "Select language messages", "Examples : ", "  French : FR_fr", "  English : EN_en");
+		this.configDefault();
 		
 		addDefault("logger", false);
 		

@@ -20,6 +20,8 @@ import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 
 import fr.evercraft.everapi.EverAPI;
+import fr.evercraft.everapi.exception.PluginDisableException;
+import fr.evercraft.everapi.exception.ServerDisableException;
 import fr.evercraft.everapi.plugin.EPlugin;
 import fr.evercraft.everapi.services.MailService;
 import fr.evercraft.evermails.command.sub.EMAlert;
@@ -70,8 +72,9 @@ public class EverMails extends EPlugin<EverMails> {
 		command.add(new EMSet(this, command));
 	}
 
-	protected void onReload(){
-		this.reloadConfigurations();
+	protected void onReload() throws PluginDisableException, ServerDisableException {
+		super.onReload();
+		
 		this.service.reload();
 	}
 	
