@@ -31,47 +31,47 @@ public class EMMessage extends EMessage<EverMails> {
 	}
 	
 	public enum EMMessages implements EnumMessage {
-		PREFIX("PREFIX", "[&4Ever&6&lMails&f] "),
-		DESCRIPTION("DESCRIPTION", "Gestion des mails"),
+		PREFIX(							"[&4Ever&6&lMails&f] "),
+		DESCRIPTION(					"Gestion des mails"),
 		
-		LIST_DESCRIPTION("listDescription", "Affiche la liste des adresses mails", "See list of emails"),
-		LIST_TITLE("listTitle", "&aLa liste des adresses mails", "&aThe list of emails"),
-		LIST_LINE("listLine", "    &6&l➤  {player} : &7{address}"),
-		LIST_EMPTY("listEmpty", "&7Aucune adresse mail", "No email"),
+		LIST_DESCRIPTION(				"Affiche la liste des adresses mails", "See list of emails"),
+		LIST_TITLE(						"&aLa liste des adresses mails", "&aThe list of emails"),
+		LIST_LINE(						"    &6&l➤  {player} : &7{address}"),
+		LIST_EMPTY(						"&7Aucune adresse mail", "No email"),
 		
-		SET_DESCRIPTION("setDescription", "Défini une adresse mail", "Set an e-mail"),
-		SET_PLAYER("setPlayer", "&7L'adresse mail de &6{player} &7a été défini en tant que &6{address}&7."),
-		SET_EQUALS("setEquals", "&7Vous avez défini votre adresse mail en &6{address}&7."),
-		SET_ERROR_PATTERN("setErrorPattern", "&cL'adresse mail n'a pas un format valide."),
-		SET_ERROR_EQUALS("setErrorEquals", "&cLes adresses mails sont identiques."),
+		SET_DESCRIPTION(				"Défini une adresse mail", "Set an e-mail"),
+		SET_PLAYER(						"&7L'adresse mail de &6{player} &7a été défini en tant que &6{address}&7."),
+		SET_EQUALS(						"&7Vous avez défini votre adresse mail en &6{address}&7."),
+		SET_ERROR_PATTERN(				"&cL'adresse mail n'a pas un format valide."),
+		SET_ERROR_EQUALS(				"&cLes adresses mails sont identiques."),
 		
-		DELETE_DESCRIPTION("deleteDescription", "Supprime une adresse mail", "Delete an email"),
-		DELETE_PLAYER("deletePlayer", "&7L'adresse mail de &6{player} &7 a été supprimé"),
-		DELETE_EQUALS("deleteEquals", "&7Vous avez supprimé votre adresse mail."),
-		DELETE_ERROR_PLAYER("deleteErrorPlayer", "&6{identifier} &cn'a pas d'adresse mail."),
-		DELETE_ERROR_EQUALS("deleteErrorEquals", "&cVous n'avez pas d'adresse mail."),
+		DELETE_DESCRIPTION(				"Supprime une adresse mail", "Delete an email"),
+		DELETE_PLAYER(					"&7L'adresse mail de &6{player} &7 a été supprimé"),
+		DELETE_EQUALS(					"&7Vous avez supprimé votre adresse mail."),
+		DELETE_ERROR_PLAYER(			"&6{identifier} &cn'a pas d'adresse mail."),
+		DELETE_ERROR_EQUALS(			"&cVous n'avez pas d'adresse mail."),
 		
-		ALERT_DESCRIPTION("alertDescription", "Envoie un message à tous les adresses mails", "Sends a message to all emails"),
-		ALERT_OBJECT("alertObject", "Avertissement de {player}"),
-		ALERT_MESSAGE("alertMessage", "{message}"),
-		ALERT_PLAYER("alertPlayer", "&7Votre message d'avertissement a bien était envoyé."),
-		ALERT_ERROR("alertError", "&cIl n'y a aucune adresse mail d'enregistré"),
+		ALERT_DESCRIPTION(				"Envoie un message à tous les adresses mails", "Sends a message to all emails"),
+		ALERT_OBJECT(					"Avertissement de {player}"),
+		ALERT_MESSAGE(					"{message}"),
+		ALERT_PLAYER(					"&7Votre message d'avertissement a bien était envoyé."),
+		ALERT_ERROR(					"&cIl n'y a aucune adresse mail d'enregistré"),
 		
-		SEND_DESCRIPTION("sendDescription", "Envoie un mail à un joueur", "Send an email to a player"),
-		SEND_OBJECT("sendObject", "Message de {player}", "Message of {player}"),
-		SEND_MESSAGE("sendMessage", "{message}"),
-		SEND_PLAYER("sendPlayer", "&7Votre message a bien était envoyé à &6{player}&7.", "&7Your message has well was sent to &6{player}&7."),
-		SEND_EQUALS("sendEquals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
-		SEND_ERROR("sendError", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7."),
+		SEND_DESCRIPTION(				"Envoie un mail à un joueur", "Send an email to a player"),
+		SEND_OBJECT(					"Message de {player}", "Message of {player}"),
+		SEND_MESSAGE(					"{message}"),
+		SEND_PLAYER(					"&7Votre message a bien était envoyé à &6{player}&7.", "&7Your message has well was sent to &6{player}&7."),
+		SEND_EQUALS(					"&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
+		SEND_ERROR(						"&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7."),
 		
-		PERMISSIONS_COMMANDS_EXECUTE("permissionsCommandsExecute", ""),
-		PERMISSIONS_COMMANDS_HELP("permissionsCommandsHelp", ""),
-		PERMISSIONS_COMMANDS_RELOAD("permissionsCommandsReload", ""),
-		PERMISSIONS_COMMANDS_LIST("permissionsCommandsList", ""),
-		PERMISSIONS_COMMANDS_SET("permissionsCommandsSet", ""),
-		PERMISSIONS_COMMANDS_DELETE("permissionsCommandsDelete", ""),
-		PERMISSIONS_COMMANDS_ALERT("permissionsCommandsAlert", ""),
-		PERMISSIONS_COMMANDS_SEND("permissionsCommandsSend", "");
+		PERMISSIONS_COMMANDS_EXECUTE(""),
+		PERMISSIONS_COMMANDS_HELP(""),
+		PERMISSIONS_COMMANDS_RELOAD(""),
+		PERMISSIONS_COMMANDS_LIST(""),
+		PERMISSIONS_COMMANDS_SET(""),
+		PERMISSIONS_COMMANDS_DELETE(""),
+		PERMISSIONS_COMMANDS_ALERT(""),
+		PERMISSIONS_COMMANDS_SEND("");
 		
 		private final String path;
 	    private final EMessageBuilder french;
@@ -79,24 +79,23 @@ public class EMMessage extends EMessage<EverMails> {
 	    private EMessageFormat message;
 	    private EMessageBuilder builder;
 	    
-	    private EMMessages(final String path, final String french) {   	
-	    	this(path, EMessageFormat.builder().chat(new EFormatString(french), true));
+	    private EMMessages(final String french) {   	
+	    	this(EMessageFormat.builder().chat(new EFormatString(french), true));
 	    }
 	    
-	    private EMMessages(final String path, final String french, final String english) {   	
-	    	this(path, 
-	    		EMessageFormat.builder().chat(new EFormatString(french), true), 
+	    private EMMessages(final String french, final String english) {   	
+	    	this(EMessageFormat.builder().chat(new EFormatString(french), true), 
 	    		EMessageFormat.builder().chat(new EFormatString(english), true));
 	    }
 	    
-	    private EMMessages(final String path, final EMessageBuilder french) {   	
-	    	this(path, french, french);
+	    private EMMessages(final EMessageBuilder french) {   	
+	    	this(french, french);
 	    }
 	    
-	    private EMMessages(final String path, final EMessageBuilder french, final EMessageBuilder english) {
+	    private EMMessages(final EMessageBuilder french, final EMessageBuilder english) {
 	    	Preconditions.checkNotNull(french, "Le message '" + this.name() + "' n'est pas définit");
 	    	
-	    	this.path = path;	    	
+	    	this.path = this.resolvePath();	    	
 	    	this.french = french;
 	    	this.english = english;
 	    	this.message = french.build();
