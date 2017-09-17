@@ -62,7 +62,16 @@ public class EMMessage extends EMessage<EverMails> {
 		SEND_MESSAGE("sendMessage", "{message}"),
 		SEND_PLAYER("sendPlayer", "&7Votre message a bien était envoyé à &6{player}&7.", "&7Your message has well was sent to &6{player}&7."),
 		SEND_EQUALS("sendEquals", "&7Vous vous êtes bien envoyé un message.", "&7You have successfully sent a message."),
-		SEND_ERROR("sendError", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7.");
+		SEND_ERROR("sendError", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7.", "&cIl n'y a aucune adresse mail d'enregistré au nom de &6{player}&7."),
+		
+		PERMISSIONS_COMMANDS_EXECUTE("permissionsCommandsExecute", ""),
+		PERMISSIONS_COMMANDS_HELP("permissionsCommandsHelp", ""),
+		PERMISSIONS_COMMANDS_RELOAD("permissionsCommandsReload", ""),
+		PERMISSIONS_COMMANDS_LIST("permissionsCommandsList", ""),
+		PERMISSIONS_COMMANDS_SET("permissionsCommandsSet", ""),
+		PERMISSIONS_COMMANDS_DELETE("permissionsCommandsDelete", ""),
+		PERMISSIONS_COMMANDS_ALERT("permissionsCommandsAlert", ""),
+		PERMISSIONS_COMMANDS_SEND("permissionsCommandsSend", "");
 		
 		private final String path;
 	    private final EMessageBuilder french;

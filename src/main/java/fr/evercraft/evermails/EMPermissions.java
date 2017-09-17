@@ -16,37 +16,48 @@
  */
 package fr.evercraft.evermails;
 
-import org.spongepowered.api.command.CommandSource;
-
-import com.google.common.base.Preconditions;
-
 import fr.evercraft.everapi.plugin.EnumPermission;
+import fr.evercraft.everapi.plugin.file.EnumMessage;
+import fr.evercraft.evermails.EMMessage.EMMessages;
 
 public enum EMPermissions implements EnumPermission {
-	EVERMAILS("commands.execute"),
-	HELP("commands.help"),
-	RELOAD("commands.reload"),	
-	LIST("commands.list"),
-	SET("commands.set"),
-	DELETE("commands.delete"),
-	ALERT("commands.alert"),
-	SEND("commands.send");
+	EVERMAILS("commands.execute", EMMessages.PERMISSIONS_COMMANDS_EXECUTE),
+	HELP("commands.help", EMMessages.PERMISSIONS_COMMANDS_HELP),
+	RELOAD("commands.reload", EMMessages.PERMISSIONS_COMMANDS_RELOAD),	
+	LIST("commands.list", EMMessages.PERMISSIONS_COMMANDS_LIST),
+	SET("commands.set", EMMessages.PERMISSIONS_COMMANDS_SET),
+	DELETE("commands.delete", EMMessages.PERMISSIONS_COMMANDS_DELETE),
+	ALERT("commands.alert", EMMessages.PERMISSIONS_COMMANDS_ALERT),
+	SEND("commands.send", EMMessages.PERMISSIONS_COMMANDS_SEND);
 	
-	private final static String prefix = "evermails";
+	private static final String PREFIX = "evermails";
 	
 	private final String permission;
+	private final EnumMessage message;
+	private final boolean value;
     
-    private EMPermissions(final String permission) {   	
-    	Preconditions.checkNotNull(permission, "La permission '" + this.name() + "' n'est pas définit");
-    	
-    	this.permission = permission;
+    private EMPermissions(final String permission, final EnumMessage message) {
+    	this(permission, message, false);
+    }
+    
+    private EMPermissions(final String permission, final EnumMessage message, final boolean value) {   	    	
+    	this.permission = PREFIX + "." + permission;
+    	this.message = message;
+    	this.value = value;
     }
 
+    @Override
     public String get() {
-		return EMPermissions.prefix + "." + this.permission;
+    	return this.permission;
 	}
-    
-    public boolean has(CommandSource player) {
-    	return player.hasPermission(this.get());
-    }
+
+	@Override
+	public boolean getDefault() {
+		return this.value;
+	}
+
+	@Override
+	public EnumMessage getMessage() {
+		return this.message;
+	}
 }
