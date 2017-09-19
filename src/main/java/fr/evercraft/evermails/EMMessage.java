@@ -130,4 +130,9 @@ public class EMMessage extends EMessage<EverMails> {
 			this.builder = message;
 		}
 	}
+	
+	@Override
+	public EnumMessage getPrefix() {
+		return EMMessages.PREFIX;
+	}
 }
