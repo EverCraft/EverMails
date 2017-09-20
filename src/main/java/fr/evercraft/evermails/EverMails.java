@@ -93,6 +93,10 @@ public class EverMails extends EPlugin<EverMails> {
 		return this.configs;
 	}
 	
+	public EMPermissions[] getPermissions() {
+		return EMPermissions.values();
+	}
+	
 	public EMailService getService() {
 		return this.service;
 	}
